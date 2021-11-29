@@ -1,7 +1,7 @@
 #!/bin/bash
 #set -e
 
-CurrentDir=$(PWD)
+CurrentDir=$(pwd)
 
 echo "##########################################"
 echo "Be Careful this will override your Rice!! Proceeding in 5 seconds"
