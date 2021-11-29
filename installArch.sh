@@ -15,20 +15,7 @@ cp -Rf ~/.config ~/.config-backup-$(date +%Y.%m.%d-%H.%M.%S)
 
 echo "Installing required Tools"
 echo "#################################"
-sudo pacman -S --needed --noconfirm kvantum-qt5 latte-dock lolcat neofetch yakuake git exa awk
-
-# Install paru
-Input=
-echo "Install 'paru' as an AUR helper? (y/n): "
-read Input
-
-if [ "$Input" == "y" ] || [ "$Input" == "yes" ]
-then
-    git clone https://aur.archlinux.org/paru.git /tmp/paru
-	cd /tmp/paru
-	makepkg -si
-	cd $CurrentDir
-fi
+sudo pacman -S --needed --noconfirm kvantum-qt5 latte-dock lolcat neofetch yakuake
 
 echo "Installing Layan Theme"
 echo "#################################"

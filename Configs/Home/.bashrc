@@ -9,6 +9,9 @@
 #export XMODIFIERS=@im=dbus
 #export QT_IM_MODULE=ibus
 
+# Set local language
+LC_ALL="en_US.UTF-8"
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -169,4 +172,4 @@ ex ()
   fi
 }
 
-clear && neofetch
+clear
