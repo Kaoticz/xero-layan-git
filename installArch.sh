@@ -35,9 +35,9 @@ sudo pacman -S --needed --noconfirm layan-gtk-theme-git layan-kde-git tela-circl
 
 # Install the Layan cursors globally
 git clone https://github.com/vinceliuice/Layan-cursors /tmp/Layan-cursors
-cp -r /tmp/Layan-cursors/dist/ /usr/share/icons/Layan-cursors
-cp -r /tmp/Layan-cursors/dist-border/ /usr/share/icons/Layan-border-cursors
-cp -r /tmp/Layan-cursors/dist-white/ /usr/share/icons/Layan-white-cursors
+sudo cp -r /tmp/Layan-cursors/dist/ /usr/share/icons/Layan-cursors
+sudo cp -r /tmp/Layan-cursors/dist-border/ /usr/share/icons/Layan-border-cursors
+sudo cp -r /tmp/Layan-cursors/dist-white/ /usr/share/icons/Layan-white-cursors
 
 echo "Installing Fonts"
 echo "#################################"
