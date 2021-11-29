@@ -2,7 +2,7 @@ For my personal use on a clean Arch install.
 Yes, the scripts are horrendous. No, I don't care. It's a one-time thing, it really doesn't matter.
 
 To start from scratch:
-`curl -L https://raw.githubusercontent.com/Kaoticz/xero-layan-git/arch/CleanInstall/install1.sh | usr/bin/bash`
+Use `CleanInstall/install1.txt` as a guide.
 
 To start from default KDE
 curl -L https://raw.githubusercontent.com/Kaoticz/xero-layan-git/arch/installArch.sh | usr/bin/bash

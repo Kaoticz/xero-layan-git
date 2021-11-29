@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Setup the user
+Input=
+echo "Type the name of the user: "
+read Input
+useradd -mg wheel "$Input"
+
+# Set the password of the user
+echo "Set the password of the user: "
+passwd "$Input"
+
+# Define the permissions for sudo
+echo "#Give admin to all wheel users" | sudo tee -a /etc/sudoers
+echo "%wheel ALL=(ALL) ALL" | sudo tee -a /etc/sudoers
+echo "" | sudo tee -a /etc/sudoers
+echo "#Don't ask for root password on the same console session" | sudo tee -a /etc/sudoers
+echo "#Defaults !tty_tickets" | sudo tee -a /etc/sudoers
+
+## Install KDE and repository backend
+pacman -S xorg sddm plasma plasma-wayland-session kde-applications packagekit-qt5 flatpak fwupd 
+
+# Run login manager on startup
+systemctl enable sddm.service
+
+# Get the next script
+curl -OL https://raw.githubusercontent.com/Kaoticz/xero-layan-git/arch/CleanInstall/install3.sh /home/"$Input"/
+rm /install2.sh
+
+# Reboot the system
+echo ""
+echo "Installation is now complete and the system will reboot in 10 seconds. Execute `bash /home/"$Input"/install3.sh` when it comes back up."
+sleep 10
+reboot
