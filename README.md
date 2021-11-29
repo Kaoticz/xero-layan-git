@@ -1,3 +1,5 @@
+For my personal use on a clean Arch install
+
 ### This is XeroLinux's Layan Rice
 
 -> Some notes before proceeding :

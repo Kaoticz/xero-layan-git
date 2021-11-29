@@ -24,12 +24,6 @@ if [ -d "$HOME/.local/bin" ] ;
   then PATH="$HOME/.local/bin:$PATH"
 fi
 
-##Cmatrix thing
-alias matrix='cmatrix -s -C cyan'
-
-#iso and version used to install ArcoLinux
-alias iso="cat /etc/dev-rel | awk -F '=' '/ISO/ {print $2}'"
-
 #ignore upper and lowercase when TAB completion
 bind "set completion-ignore-case on"
 
@@ -43,36 +37,36 @@ alias ll='exa -l --color=always --group-directories-first --icons'  # long forma
 alias lt='exa -aT --color=always --group-directories-first --icons' # tree listing
 alias l='exa -lah --color=always --group-directories-first --icons' # tree listing
 
-#pacman unlock
-alias unlock="sudo rm /var/lib/pacman/db.lck"
-
 #available free memory
-alias free="free -mt"
+alias free="free -h"
 
 #continue download
 alias wget="wget -c"
 
 #readable output
 alias df='df -h'
+alias disk='df -h'
 
 #userlist
 alias userlist="cut -d: -f1 /etc/passwd"
 
 #Pacman for software managment
-alias search='sudo pacman -Qs'
-alias remove='sudo pacman -R'
-alias install='sudo pacman -S'
-alias linstall='sudo pacman -U '
-alias update='sudo pacman -Syyu'
-alias clrcache='sudo pacman -Scc'
-alias updb='paru && sudo pacman -Sy'
-alias orphans='sudo pacman -Rns $(pacman -Qtdq)'
+alias pacman-search='sudo pacman -Qs'
+alias pacman-remove='sudo pacman -R'
+alias pacman-install='sudo pacman -S'
+alias pacman-localinstall='sudo pacman -U '
+alias pacman-upgrade='sudo pacman -Syyu'
+alias pacman-clrcache='sudo pacman -Scc'
+alias pacman-update='sudo pacman -Sy'
+alias pacman-autoremove='sudo pacman -Rns $(pacman -Qtdq)'
+alias pacman-unlock="sudo rm /var/lib/pacman/db.lck"
+alias update='paru && flatpak update && sudo pacman -Syyu --noconfirm'
 
 #Paru as aur helper - updates everything
-alias pget='paru -S '
-alias prm='paru -Rs '
-alias psr='paru -Ss '
-alias upall='paru -Syyu --noconfirm'
+alias paru-install='paru -S '
+alias paru-remove='paru -Rs '
+alias paru-search='paru -Ss '
+alias paru-update='paru -Syyu --noconfirm'
 
 #Flatpak Update
 alias fpup='flatpak update'
@@ -81,36 +75,27 @@ alias fpup='flatpak update'
 alias sup='sudo snap refresh'
 
 #grub update
-alias grubup='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+alias grub-refresh='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
 #get fastest mirrors in your neighborhood
 alias ram='rate-mirrors --allow-root arch | sudo tee /etc/pacman.d/mirrorlist'
 alias reft='sudo systemctl enable reflector.service reflector.timer && sudo systemctl start reflector.service reflector.timer'
 
-#quickly kill stuff
-alias kc='killall conky'
-
 #mounting the folder Public for exchange between host and guest on virtualbox
 alias vbm="sudo mount -t vboxsf -o rw,uid=1000,gid=1000 Public /home/$USER/Public"
 
 #Bash aliases
-alias mkfile='touch'
 alias thor='sudo thunar'
 alias jctl='journalctl -p 3 -xb'
 alias ssaver='xscreensaver-demo'
 alias reload='cd ~ && source ~/.bashrc'
-alias pingme='ping -c64 github.com'
-alias cls='clear && neofetch'
-alias traceme='traceroute github.com'
+alias cls='clear'
 
 #hardware info --short
 alias hw="hwinfo --short"
 
 #youtube-dl
 alias ytv-best='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio" --merge-output-format mp4 '
-
-#GiT  command
-alias gc='git clone '
 
 #userlist
 alias userlist="cut -d: -f1 /etc/passwd"
@@ -125,23 +110,23 @@ alias scpd='sudo cp -R'
 
 #nano
 alias bashrc='sudo nano ~/.bashrc'
-alias nsddm='sudo nano /etc/sddm.conf'
-alias pconf='sudo nano /etc/pacman.conf'
-alias mkpkg='sudo nano /etc/makepkg.conf'
-alias ngrub='sudo nano /etc/default/grub'
-alias smbconf='sudo nano /etc/samba/smb.conf'
-alias nmirrorlist='sudo nano /etc/pacman.d/mirrorlist'
+alias sddmconf='sudo nano /etc/sddm.conf'
+alias pacmanconf='sudo nano /etc/pacman.conf'
+alias makepkgconf='sudo nano /etc/makepkg.conf'
+alias grubconf='sudo nano /etc/default/grub'
+alias sambaconf='sudo nano /etc/samba/smb.conf'
+alias repolist='sudo nano /etc/pacman.d/mirrorlist'
 
 #cd/ aliases
 alias home='cd ~'
 alias etc='cd /etc/'
 alias music='cd ~/Music'
-alias vids='cd ~/Videos'
+alias videos='cd ~/Videos'
 alias conf='cd ~/.config'
-alias desk='cd ~/Desktop'
-alias pics='cd ~/Pictures'
-alias dldz='cd ~/Downloads'
-alias docs='cd ~/Documents'
+alias desktop='cd ~/Desktop'
+alias pictures='cd ~/Pictures'
+alias donwloads='cd ~/Downloads'
+alias documents='cd ~/Documents'
 alias sapps='cd /usr/share/applications'
 alias lapps='cd ~/.local/share/applications'
 
@@ -150,8 +135,8 @@ alias tolightdm="sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-
 alias tosddm="sudo pacman -S sddm --noconfirm --needed ; sudo systemctl enable sddm.service -f ; echo 'Sddm is active - reboot now'"
 
 #Recent Installed Packages
-alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
-alias riplong="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
+alias last-installed="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
+alias long-installed="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
 
 #shutdown or reboot
 alias sr="sudo reboot"
