@@ -1,0 +1,101 @@
+#!/bin/bash
+
+# Setup keyboard layout
+#localectl set-keymap --no-convert br-abnt
+
+# Setup system clock
+timedatectl set-timezone America/Sao_Paulo
+timedatectl set-ntp true
+
+# Setup disk partitions
+cfdisk /dev/sda
+
+# 128M for boot partition, primary
+# Everything else for storage, primary
+
+# Write the filesystem
+mkfs.ext4 /dev/sda1
+mkfs.ext4 /dev/sda2
+
+# Mount the root partition
+mount /dev/sda2 /mnt
+
+# Create the boot directory
+mkdir /mnt/boot
+
+# Mount the boot directory
+mount /dev/sda1 /mnt/boot
+
+# Install the operational system
+Input=
+echo "(R)egular or (L)TS kernel? ('R' to install regular, 'L' to install LTS):"
+read Input
+
+if [ "$Input" == "r" ] || [ "$Input" == "R" ]
+then
+    pacstrap /mnt base base-devel linux linux-firmware nvidia nano
+else
+	pacstrap /mnt base base-devel linux-lts linux-firmware nvidia-lts nano
+fi
+
+# Create the fstab file
+genfstab -U /mnt >> /mnt/etc/fstab
+
+# Log into the installed system
+arch-chroot /mnt /bin/bash
+
+# Setup keyboard layout
+localectl set-keymap --no-convert br-abnt
+
+# Change /etc/pacman.conf here
+echo "# Enable parallel download of packages" | tee -a /etc/pacman.conf
+echo "ParallelDownloads = 10" | tee -a /etc/pacman.conf
+
+# Install the network manager and GRUB
+pacman -S networkmanager grub os-prober
+
+# Enable the network manager on startup
+systemctl enable NetworkManager
+
+# Setup GRUB
+grub-install /dev/sda
+
+# Add GRUB_DISABLE_OS_PROBER=false to the end of the file
+echo "GRUB_DISABLE_OS_PROBER=false" | tee -a /etc/default/grub
+
+# Generate the grub configuration
+grub-mkconfig -o /boot/grub/grub.cfg
+
+# Set password for root
+echo "Type the password for root: "
+passwd
+
+# Generate the locale
+echo "LC_ALL=en_US.UTF-8" | tee -a /etc/environment
+echo "en_US.UTF-8 UTF-8" | tee -a /etc/locale.gen
+echo "LANG=en_US.UTF-8" | tee -a /etc/locale.conf
+locale-gen
+
+# Name the computer (ex: archbox)
+Input=
+echo "Define the name of the computer: "
+read UserInput
+echo "$Input" | tee -a /etc/hostname
+
+# Set the local time # (press TAB for autocompletion) ln -sf /usr/share/zoneinfo/[TAB]/[TAB]
+ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+
+# Download the next script
+curl -OL https://raw.githubusercontent.com/Kaoticz/xero-layan-git/arch/CleanInstall/install2.sh /
+
+# Exit the local system
+exit
+
+# Unmount everything
+umount -R /mnt
+
+# Reboot the system
+echo ""
+echo "Installation is now complete and the system will reboot in 10 seconds. Execute `bash /install2.sh` when it comes back up."
+sleep 10
+reboot
