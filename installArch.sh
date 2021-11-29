@@ -19,9 +19,9 @@ sudo pacman -S --needed --noconfirm kvantum-qt5 latte-dock lolcat neofetch yakua
 # Install paru
 Input=
 echo "Install 'paru' as an AUR helper? (y/n): "
-read INPUT
+read Input
 
-if [ $Input == "y" ] || [ $Input == "yes" ]
+if [ "$Input" == "y" ] || [ "$Input" == "yes" ]
 then
     git clone https://aur.archlinux.org/paru.git /tmp/paru
 	cd /tmp/paru
