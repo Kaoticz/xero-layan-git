@@ -1,5 +1,6 @@
 #!/bin/bash
 #set -e
+# xero-layan-git has to be downloaded to /tmp
 
 CurrentDir=$(pwd)
 
@@ -45,8 +46,8 @@ sudo pacman -S --needed --noconfirm nerd-fonts-hack nerd-fonts-fira-code nerd-fo
 
 echo "Applying new Rice, hold on..."
 echo "#################################"
-cp -Rf Configs/Home/. ~
-sudo cp -Rf Configs/System/. /
+cp -Rf /tmp/xero-layan-git/Configs/Home/. ~
+sudo cp -Rf /tmp/xero-layan-git/Configs/System/. /
 
 #echo "Applying Grub Theme...."
 #echo "#################################"
