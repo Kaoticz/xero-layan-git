@@ -141,13 +141,13 @@ alias tosddm="sudo pacman -S sddm --noconfirm --needed ; sudo systemctl enable s
 alias last-installed="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 alias long-installed="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
 
-#shutdown or reboot
-alias sr="sudo reboot"
-alias ssn="sudo shutdown now"
+# Shutdown and reboot
+alias reboot="sudo reboot"
+alias shutdown="sudo shutdown now"
 
 # # ex = EXtractor for all kinds of archives
-# # usage: ex <file>
-ex ()
+# # usage: extract <file>
+extract ()
 {
   if [ -f $1 ] ; then
     case $1 in

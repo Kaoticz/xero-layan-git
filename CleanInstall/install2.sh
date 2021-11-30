@@ -36,7 +36,8 @@ pacman -S xorg sddm plasma plasma-wayland-session kde-applications packagekit-qt
 systemctl enable sddm.service
 
 # Get the next script
-curl -OL https://raw.githubusercontent.com/Kaoticz/xero-layan-git/arch/CleanInstall/install3.sh /home/"$Input"/
+curl -OL https://raw.githubusercontent.com/Kaoticz/xero-layan-git/arch/CleanInstall/install3.sh
+mv install3.sh /home/"$Input"/install3.sh
 rm install2.sh
 
 # Reboot the system

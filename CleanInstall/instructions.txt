@@ -12,14 +12,17 @@ cfdisk /dev/sda
 
 # 128M for boot partition, primary
 # Everything else for storage, primary
+## You might want to consider making separate partitions for /home, /usr, /data, /tmp, and /var
+## / goes last
 
-# Write the filesystem
+# Write the filesystem by formatting the drives
 mkfs.ext4 /dev/sda1
 mkfs.ext4 /dev/sda2
 
-# Mount the root partition
+# Mount the root partition. This must come first!
 mount /dev/sda2 /mnt
 
+# Mount everything else
 # Create the boot directory
 mkdir /mnt/boot
 
