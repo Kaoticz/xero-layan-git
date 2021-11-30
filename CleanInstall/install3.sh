@@ -15,6 +15,7 @@ sudo pacman -S --needed --noconfirm git exa awk
 
 # Install paru
 Input=
+echo ""
 echo "Install 'paru' as an AUR helper? (y/n): "
 read Input
 
@@ -23,7 +24,6 @@ then
     git clone https://aur.archlinux.org/paru.git /tmp/paru
 	cd /tmp/paru
 	makepkg -si
-	cd $CurrentDir
 fi
 
 # Install the Xero Layan theme
@@ -32,3 +32,6 @@ bash /tmp/xero-layan-git/installArch.sh
 
 # Clean-up
 rm $Home/install3.sh
+
+# Reboot
+sudo reboot
