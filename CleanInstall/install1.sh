@@ -1,26 +1,5 @@
 #!/bin/bash
 
-# Install the operational system
-Input=
-echo "(R)egular or (L)TS kernel? ('R' to install regular, 'L' to install LTS):"
-read Input
-
-if [ "$Input" == "r" ] || [ "$Input" == "R" ]
-then
-    pacstrap /mnt base base-devel linux linux-firmware nvidia nano
-else
-	pacstrap /mnt base base-devel linux-lts linux-firmware nvidia-lts nano
-fi
-
-# Create the fstab file
-genfstab -U /mnt >> /mnt/etc/fstab
-
-# Log into the installed system
-arch-chroot /mnt /bin/bash
-
-# Setup keyboard layout
-localectl set-keymap --no-convert br-abnt
-
 # Install the network manager and GRUB
 pacman -S networkmanager grub os-prober
 
@@ -54,6 +33,9 @@ echo "$Input" | tee -a /etc/hostname
 
 # Set the local time # (press TAB for autocompletion) ln -sf /usr/share/zoneinfo/[TAB]/[TAB]
 ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+
+# Clean-up
+rm install1.sh
 
 # Exit the local system
 exit

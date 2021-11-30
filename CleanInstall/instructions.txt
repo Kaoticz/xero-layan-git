@@ -26,6 +26,34 @@ mkdir /mnt/boot
 # Mount the boot directory
 mount /dev/sda1 /mnt/boot
 
+# Install the operational system
+# Pick one of the following
+
+## Regular Kernel
+pacstrap /mnt base base-devel linux linux-firmware nvidia nano
+
+## Or
+## LTS Kernel
+pacstrap /mnt base base-devel linux-lts linux-firmware nvidia-lts nano
+
+# Create the fstab file
+genfstab -U /mnt >> /mnt/etc/fstab
+
+# Log into the installed system
+arch-chroot /mnt /bin/bash
+
+# Setup keyboard layout
+localectl set-keymap --no-convert br-abnt
+
+
+
+
+
+
+
+
+
+
 # Run the following
-# curl -OL https://raw.githubusercontent.com/Kaoticz/xero-layan-git/arch/CleanInstall/install2.sh
+# curl -OL https://raw.githubusercontent.com/Kaoticz/xero-layan-git/arch/CleanInstall/install1.sh
 # bash install1.sh
