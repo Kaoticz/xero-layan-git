@@ -11,7 +11,7 @@ echo "Server = https://xerolinux.github.io/\$repo/\$arch" | sudo tee -a /etc/pac
 sudo pacman -Syyu --noconfirm
 
 # Install common tools
-sudo pacman -S git exa awk
+sudo pacman -S --needed --noconfirm git exa awk
 
 # Install paru
 Input=

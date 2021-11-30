@@ -65,6 +65,7 @@ bash install2.sh
 # Follow the instructions. Computer will reboot at the end.
 
 # Open the terminal and run the script in the user home directory
+# If it's not there, curl -OL https://raw.githubusercontent.com/Kaoticz/xero-layan-git/arch/CleanInstall/install3.sh
 bash install3.sh
 
 # Follow the instructions. Computer will reboot at the end.
