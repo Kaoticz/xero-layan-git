@@ -31,7 +31,7 @@ git clone https://github.com/Kaoticz/xero-layan-git -b arch /tmp/xero-layan-git
 bash /tmp/xero-layan-git/installArch.sh
 
 # Clean-up
-rm $Home/install3.sh
+rm $HOME/install3.sh
 
 # Reboot
 sudo reboot

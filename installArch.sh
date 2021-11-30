@@ -43,7 +43,5 @@ sudo cp -Rf /tmp/xero-layan-git/Configs/System/. /
 #sudo sed -i "s/#GRUB_GFXMODE=640x480/GRUB_GFXMODE=1920x1080/g" /etc/default/grub
 #sudo grub-mkconfig -o /boot/grub/grub.cfg
 
-echo "Rebooting system in 5 seconds..."
+echo "Reboot the system to apply the changes"
 echo "#################################"
-sleep 5
-sudo reboot
