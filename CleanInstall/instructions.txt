@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Setup keyboard layout
+#localectl set-keymap --no-convert br-abnt
+
+# Setup system clock
+timedatectl set-timezone America/Sao_Paulo
+timedatectl set-ntp true
+
+# Setup disk partitions
+cfdisk /dev/sda
+
+# 128M for boot partition, primary
+# Everything else for storage, primary
+
+# Write the filesystem
+mkfs.ext4 /dev/sda1
+mkfs.ext4 /dev/sda2
+
+# Mount the root partition
+mount /dev/sda2 /mnt
+
+# Create the boot directory
+mkdir /mnt/boot
+
+# Mount the boot directory
+mount /dev/sda1 /mnt/boot
+
+# Run the following
+# curl -OL https://raw.githubusercontent.com/Kaoticz/xero-layan-git/arch/CleanInstall/install2.sh
+# bash install1.sh
