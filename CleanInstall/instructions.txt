@@ -30,11 +30,11 @@ mount /dev/sda1 /mnt/boot
 # Pick one of the following
 
 ## Regular Kernel
-pacstrap /mnt base base-devel linux linux-firmware nvidia nano
+pacstrap /mnt base base-devel linux linux-firmware nvidia bash nano
 
 ## Or
 ## LTS Kernel
-pacstrap /mnt base base-devel linux-lts linux-firmware nvidia-lts nano
+pacstrap /mnt base base-devel linux-lts linux-firmware nvidia-lts bash nano
 
 # Create the fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -45,15 +45,27 @@ arch-chroot /mnt /bin/bash
 # Setup keyboard layout
 localectl set-keymap --no-convert br-abnt
 
+# Run the following
+curl -OL https://raw.githubusercontent.com/Kaoticz/xero-layan-git/arch/CleanInstall/install1.sh
+bash install1.sh
 
+# Exit the local system
+exit
 
+# Unmount everything
+umount -R /mnt
 
-
-
-
-
-
+# Reboot the system
+reboot
 
 # Run the following
-# curl -OL https://raw.githubusercontent.com/Kaoticz/xero-layan-git/arch/CleanInstall/install1.sh
-# bash install1.sh
+curl -OL https://raw.githubusercontent.com/Kaoticz/xero-layan-git/arch/CleanInstall/install2.sh
+bash install2.sh
+
+# Follow the instructions. Computer will reboot at the end.
+
+# Open the terminal and run the script in the user home directory
+bash install3.sh
+
+# Follow the instructions. Computer will reboot at the end.
+# Done

@@ -1,10 +1,11 @@
 #!/bin/bash
 
 # Add the theme repository to /etc/pacman.conf
+echo "" | sudo tee -a /etc/pacman.conf
 echo "# Add the XeroLinux repository for the themes" | sudo tee -a /etc/pacman.conf
 echo "[xerolinux_repo]" | sudo tee -a /etc/pacman.conf
 echo "SigLevel = Optional TrustAll" | sudo tee -a /etc/pacman.conf
-echo "Server = https://xerolinux.github.io/$repo/$arch" | sudo tee -a /etc/pacman.conf
+echo "Server = https://xerolinux.github.io/\$repo/\$arch" | sudo tee -a /etc/pacman.conf
 
 # Update the repository list and system
 sudo pacman -Syyu --noconfirm

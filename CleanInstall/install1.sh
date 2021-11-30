@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install the network manager and GRUB
-pacman -S networkmanager grub os-prober
+pacman -S --noconfirm networkmanager grub os-prober
 
 # Enable the network manager on startup
 systemctl enable NetworkManager
@@ -36,15 +36,3 @@ ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 
 # Clean-up
 rm install1.sh
-
-# Exit the local system
-exit
-
-# Unmount everything
-umount -R /mnt
-
-# Reboot the system
-echo ""
-echo "Installation is now complete and the system will reboot in 10 seconds. Execute `bash /install2.sh` when it comes back up."
-sleep 10
-reboot

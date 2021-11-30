@@ -12,10 +12,11 @@ read Input
 useradd -mg wheel "$Input"
 
 # Set the password of the user
-echo "Set the password of the user: "
+echo "Set the password for $Input: "
 passwd "$Input"
 
 # Define the permissions for sudo
+echo "" | sudo tee -a /etc/sudoers
 echo "#Give admin to all wheel users" | sudo tee -a /etc/sudoers
 echo "%wheel ALL=(ALL) ALL" | sudo tee -a /etc/sudoers
 echo "" | sudo tee -a /etc/sudoers
@@ -23,8 +24,8 @@ echo "#Don't ask for root password on the same console session" | sudo tee -a /e
 echo "#Defaults !tty_tickets" | sudo tee -a /etc/sudoers
 
 # Change /etc/pacman.conf to allow concurrent downloads
-echo "# Enable parallel download of packages" | tee -a /etc/pacman.conf
-echo "ParallelDownloads = 10" | tee -a /etc/pacman.conf
+echo ""
+echo "Please, enable ParallelDownloads in the following file. Proceeding in 10 seconds."
 
 ## Install KDE and repository backend
 pacman -S xorg sddm plasma plasma-wayland-session kde-applications packagekit-qt5 flatpak fwupd 
@@ -38,6 +39,6 @@ rm install2.sh
 
 # Reboot the system
 echo ""
-echo "Installation is now complete and the system will reboot in 10 seconds. Execute `bash /home/"$Input"/install3.sh` when it comes back up."
+echo "Installation is now complete and the system will reboot in 10 seconds. Execute 'bash /home/$Input/install3.sh' when it comes back up."
 sleep 10
 reboot
