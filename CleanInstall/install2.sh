@@ -21,7 +21,7 @@ echo "#Give admin to all wheel users" | sudo tee -a /etc/sudoers
 echo "%wheel ALL=(ALL) ALL" | sudo tee -a /etc/sudoers
 echo "" | sudo tee -a /etc/sudoers
 echo "#Don't ask for root password on the same console session" | sudo tee -a /etc/sudoers
-echo "#Defaults !tty_tickets" | sudo tee -a /etc/sudoers
+echo "Defaults !tty_tickets" | sudo tee -a /etc/sudoers
 
 # Change /etc/pacman.conf to allow concurrent downloads
 echo ""

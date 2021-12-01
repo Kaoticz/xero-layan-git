@@ -10,15 +10,16 @@ timedatectl set-ntp true
 
 # Setup disk partitions
 cfdisk /dev/sda
+cfdisk /dev/sdb
 
-# 128M for boot partition, primary
-# Everything else for storage, primary
-## You might want to consider making separate partitions for /home, /data, /tmp, and /var
-## / goes last
+# sda1 - 128M for boot partition, primary
+# sda2 - Everything else for storage, primary
+# sdb1 - Everything for /home, /data, /var, and /tmp
 
 # Write the filesystem by formatting the drives
 mkfs.ext4 /dev/sda1
 mkfs.ext4 /dev/sda2
+mkfs.ext4 /dev/sdb1
 
 # Mount the root partition. This must come first!
 mount /dev/sda2 /mnt
@@ -44,7 +45,7 @@ mount /dev/sdb1 /mnt/var
 mount /dev/sdb1 /mnt/tmp
 
 # Install the operational system
-# Pick one of the following
+## Pick one of the following
 
 ## Regular Kernel
 pacstrap /mnt base base-devel linux linux-firmware nvidia bash nano

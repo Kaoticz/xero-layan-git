@@ -30,8 +30,27 @@ fi
 git clone https://github.com/Kaoticz/xero-layan-git -b arch /tmp/xero-layan-git
 bash /tmp/xero-layan-git/installArch.sh
 
+# Setup swap file
+echo "Creating the swap file"
+
+## Create the swap file (2GB)
+sudo dd if=/dev/zero of=/var/swapfile bs=1024 count=1953125‬
+
+# Don't do this, causes problems on Btrfs drives
+#sudo fallocate -l 2G /var/swapfile
+
+sudo chmod 600 /var/swapfile
+
+sudo mkswap /var/swapfile
+
+sudo swapon /var/swapfile
+
+echo "" | sudo tee -a /etc/fstab
+echo "# Swap file" | sudo tee -a /etc/fstab
+echo "/var/swapfile none swap sw 0 0" | sudo tee -a /etc/fstab
+
 # Clean-up
-rm $HOME/install3.sh
+sudo rm $HOME/install3.sh
 
 # Reboot
 sudo reboot
