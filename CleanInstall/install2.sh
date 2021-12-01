@@ -29,6 +29,10 @@ echo "Please, enable ParallelDownloads in the following file (don't set the valu
 sleep 10
 nano /etc/pacman.conf
 
+# Ensure the keyring is updated, so packages don't come with weird signing
+pacman -Sy archlinux-keyring
+pacman -Syu
+
 ## Install KDE and repository backend
 pacman -S --disable-download-timeout xorg sddm plasma plasma-wayland-session kde-applications packagekit-qt5 flatpak fwupd reflector
 
