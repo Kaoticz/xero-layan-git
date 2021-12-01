@@ -19,7 +19,7 @@ sudo pacman -S --needed --noconfirm --disable-download-timeout kvantum-qt5 latte
 
 echo "Installing Layan Theme"
 echo "#################################"
-sudo pacman -S --needed --noconfirm --disable-download-timeout layan-gtk-theme-git layan-kde-git tela-circle-icon-theme-git
+sudo pacman -S --needed --noconfirm --disable-download-timeout layan-gtk-theme-git kvantum-theme-layan layan-kde-git tela-circle-icon-theme-git
 
 # Install the Layan cursors globally
 git clone https://github.com/vinceliuice/Layan-cursors /tmp/Layan-cursors

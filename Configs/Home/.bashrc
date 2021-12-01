@@ -9,9 +9,6 @@
 #export XMODIFIERS=@im=dbus
 #export QT_IM_MODULE=ibus
 
-# Set local language
-LC_ALL="en_US.UTF-8"
-
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -139,7 +136,7 @@ alias tosddm="sudo pacman -S sddm --noconfirm --needed ; sudo systemctl enable s
 
 #Recent Installed Packages
 alias last-installed="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
-alias long-installed="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
+alias oldest-installed="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
 
 # Shutdown and reboot
 alias reboot="sudo reboot"
@@ -165,7 +162,7 @@ extract ()
       *.deb)       ar x $1      ;;
       *.tar.xz)    tar xf $1    ;;
       *.tar.zst)   unzstd $1    ;;
-      *)           echo "'$1' cannot be extracted via ex()" ;;
+      *)           echo "'$1' cannot be extracted via extract()" ;;
     esac
   else
     echo "'$1' is not a valid file"

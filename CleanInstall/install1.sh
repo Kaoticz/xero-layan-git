@@ -36,5 +36,8 @@ echo "$Input" | tee -a /etc/hostname
 # Set the local time # (press TAB for autocompletion) ln -sf /usr/share/zoneinfo/[TAB]/[TAB]
 ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 
+# Get the next script
+curl -OL https://raw.githubusercontent.com/Kaoticz/xero-layan-git/arch/CleanInstall/install2.sh
+
 # Clean-up
 rm install1.sh
