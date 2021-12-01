@@ -25,15 +25,18 @@ echo "#Defaults !tty_tickets" | sudo tee -a /etc/sudoers
 
 # Change /etc/pacman.conf to allow concurrent downloads
 echo ""
-echo "Please, enable ParallelDownloads in the following file. Proceeding in 10 seconds."
+echo "Please, enable ParallelDownloads in the following file (don't set the value too high). Proceeding in 10 seconds."
 sleep 10
 nano /etc/pacman.conf
 
 ## Install KDE and repository backend
-pacman -S xorg sddm plasma plasma-wayland-session kde-applications packagekit-qt5 flatpak fwupd 
+pacman -S --disable-download-timeout xorg sddm plasma plasma-wayland-session kde-applications packagekit-qt5 flatpak fwupd reflector
 
 # Run login manager on startup
 systemctl enable sddm.service
+
+# Run reflector on startup
+systemctl enable reflector.service
 
 # Get the next script
 curl -OL https://raw.githubusercontent.com/Kaoticz/xero-layan-git/arch/CleanInstall/install3.sh

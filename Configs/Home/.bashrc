@@ -56,7 +56,7 @@ alias userlist="cut -d: -f1 /etc/passwd"
 #Pacman for software managment
 alias pacman-search='sudo pacman -Qs'
 alias pacman-remove='sudo pacman -R'
-alias pacman-install='sudo pacman -S'
+alias pacman-install='sudo pacman -S --disable-download-timeout '
 alias pacman-localinstall='sudo pacman -U '
 alias pacman-upgrade='sudo pacman -Syyu'
 alias pacman-clrcache='sudo pacman -Scc'

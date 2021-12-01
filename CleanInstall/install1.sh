@@ -16,6 +16,7 @@ echo "GRUB_DISABLE_OS_PROBER=false" | tee -a /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # Set password for root
+echo ""
 echo "Type the password for root: "
 passwd
 
@@ -27,6 +28,7 @@ locale-gen
 
 # Name the computer (ex: archbox)
 Input=
+echo ""
 echo "Define the name of the computer: "
 read UserInput
 echo "$Input" | tee -a /etc/hostname

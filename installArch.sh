@@ -15,11 +15,11 @@ cp -Rf ~/.config ~/.config-backup-$(date +%Y.%m.%d-%H.%M.%S)
 
 echo "Installing required Tools"
 echo "#################################"
-sudo pacman -S --needed --noconfirm kvantum-qt5 latte-dock lolcat neofetch yakuake
+sudo pacman -S --needed --noconfirm --disable-download-timeout kvantum-qt5 latte-dock lolcat neofetch yakuake
 
 echo "Installing Layan Theme"
 echo "#################################"
-sudo pacman -S --needed --noconfirm layan-gtk-theme-git layan-kde-git tela-circle-icon-theme-git
+sudo pacman -S --needed --noconfirm --disable-download-timeout layan-gtk-theme-git layan-kde-git tela-circle-icon-theme-git
 
 # Install the Layan cursors globally
 git clone https://github.com/vinceliuice/Layan-cursors /tmp/Layan-cursors
@@ -29,7 +29,7 @@ sudo cp -r /tmp/Layan-cursors/dist-white/ /usr/share/icons/Layan-white-cursors
 
 echo "Installing Fonts"
 echo "#################################"
-sudo pacman -S --needed --noconfirm nerd-fonts-hack nerd-fonts-fira-code nerd-fonts-meslo nerd-fonts-terminus noto-fonts-emoji
+sudo pacman -S --needed --noconfirm --disable-download-timeout nerd-fonts-hack nerd-fonts-fira-code nerd-fonts-meslo nerd-fonts-terminus noto-fonts-emoji
 
 echo "Applying new Rice, hold on..."
 echo "#################################"
