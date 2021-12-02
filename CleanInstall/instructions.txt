@@ -13,8 +13,9 @@ cfdisk /dev/sda
 cfdisk /dev/sdb
 
 # sda1 - 128M for boot partition, primary
-# sda2 - Everything else for storage, primary
-# sdb1 - Everything for /home, /data, /var, and /tmp
+# sda2 - root, primary
+# sdb1 - /home, primary
+# sdb2 - /var, primary
 
 # Write the filesystem by formatting the drives
 mkfs.ext4 /dev/sda1
@@ -31,18 +32,14 @@ mkdir /mnt/boot
 # Create the directories for the stuff to be
 # mounted on the secondary drive
 mkdir /mnt/home
-mkdir /mnt/data
 mkdir /mnt/var
-mkdir /mnt/tmp
 
 # Mount the boot directory
 mount /dev/sda1 /mnt/boot
 
 # Mount the other directories
 mount /dev/sdb1 /mnt/home
-mount /dev/sdb1 /mnt/data
 mount /dev/sdb1 /mnt/var
-mount /dev/sdb1 /mnt/tmp
 
 # Install the operational system
 ## Pick one of the following

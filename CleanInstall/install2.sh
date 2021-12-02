@@ -33,8 +33,15 @@ nano /etc/pacman.conf
 pacman -Sy archlinux-keyring
 pacman -Syu
 
-## Install KDE and repository backend
-pacman -S --disable-download-timeout xorg sddm plasma plasma-wayland-session kde-applications packagekit-qt5 flatpak fwupd reflector
+# Install KDE and repository backend
+## kde-sdk: kcachegrind, kompare, lokalize, umbrello
+## kde-pim: kmail, korganizer
+## kde-system: dolphin, kcron, khelpcenter, ksystemlog
+## kde-graphics: gwenview, kcolorchooser, kdegraphics-mobipocket, kdegraphics-thumbnailers, kolourpaint, okular, spectacle, svgpart
+## kde-network: kdeconnect (look more into it), kio-extras, kio-gdrive, ktorrent, zeroconf-ioslave
+## kde-utilities: ark, filelight, kbackup, kcharselect, kdialog, kfind, kgpg, konsole, ktimer, kwrite, markdownpart, sweeper, yakuake
+## kde-education: artikulate
+pacman -S --disable-download-timeout xorg sddm plasma plasma-wayland-session kde-sdk kde-pim kde-system kde-graphics kde-network kde-utilities kde-education packagekit-qt5 flatpak fwupd reflector
 
 # Run login manager on startup
 systemctl enable sddm.service
