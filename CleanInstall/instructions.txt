@@ -74,6 +74,7 @@ umount -R /mnt
 reboot
 
 # Run the following
+## Check list at the end for the suggested KDE applications
 curl -OL https://raw.githubusercontent.com/Kaoticz/xero-layan-git/arch/CleanInstall/install2.sh
 bash install2.sh
 
@@ -104,3 +105,46 @@ echo "" | sudo tee -a /etc/fstab
 echo "# Swap file" | sudo tee -a /etc/fstab
 echo "/var/swapfile none swap sw 0 0" | sudo tee -a /etc/fstab
 # Done
+
+
+
+
+###### List of KDE applications to install ######
+# 5 - ark
+# 6 - artikulate
+# 13 - dolphin
+# 17 - ffmpegthumbs
+# 18 - filelight
+# 21 - gwenview
+# 37 - kbackup
+# 43 - kcachegrind
+# 45 - kcharselect
+# 46 - kcolorchooser
+# 47 - kcron
+# 51 - kdeconnect (only if you have a phone)
+# 52 - kdegraphics-mobipocket
+# 53 - kdegraphics-thumbnailers
+# 60 - kdialog
+# 63 - kfind
+# 69 - kgpg
+# 71 - khelpcenter
+# 76 - kio-extras
+# 77 - kio-gdrive
+# 89 - kmail
+# 102 - kolourpaint
+# 103 - kompare
+# 106 - konsole
+# 111 - korganizer
+# 124 - ksystemlog
+# 126 - ktimer
+# 127 - ktorrent
+# 135 - kwrite
+# 136 - lokalize
+# 139 - markdownpart
+# 142 - okular
+# 154 - spectacle
+# 156 - svgpart
+# 157 - sweeper
+# 170 - umbrello
+# 171 - yakuake
+# 172 - zeroconf-ioslave
