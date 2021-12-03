@@ -30,7 +30,7 @@ locale-gen
 Input=
 echo ""
 echo "Define the name of the computer: "
-read UserInput
+read Input
 echo "$Input" | tee -a /etc/hostname
 
 # Set the local time # (press TAB for autocompletion) ln -sf /usr/share/zoneinfo/[TAB]/[TAB]
