@@ -60,13 +60,13 @@ alias pacman-clrcache='sudo pacman -Scc'
 alias pacman-update='sudo pacman -Sy'
 alias pacman-autoremove='sudo pacman -Rns $(pacman -Qtdq)'
 alias pacman-unlock="sudo rm /var/lib/pacman/db.lck"
-alias update='paru && flatpak update && sudo pacman -Syyu --noconfirm'
+alias update='paru && flatpak update && sudo pacman -Syyu'
 
 #Paru as aur helper - updates everything
 alias paru-install='paru -S '
 alias paru-remove='paru -Rs '
 alias paru-search='paru -Ss '
-alias paru-update='paru -Syyu --noconfirm'
+alias paru-update='paru -Syyu'
 
 #Flatpak Update
 alias fpup='flatpak update'
