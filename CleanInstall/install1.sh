@@ -10,7 +10,18 @@ systemctl enable NetworkManager
 grub-install /dev/sda
 
 # Add GRUB_DISABLE_OS_PROBER=false to the end of the file
+echo "" | tee -a /etc/default/grub
+echo "# Allow GRUB to detect other OSes" | tee -a /etc/default/grub
 echo "GRUB_DISABLE_OS_PROBER=false" | tee -a /etc/default/grub
+
+echo "" | tee -a /etc/default/grub
+echo "# Disable the GRUB submenu (shows the OS/Kernel on the main screen)" | tee -a /etc/default/grub
+echo "GRUB_DISABLE_SUBMENU=n" | tee -a /etc/default/grub
+
+echo "" | tee -a /etc/default/grub
+echo "# Save and use the last used kernel" | tee -a /etc/default/grub
+echo "GRUB_DEFAULT=saved" | tee -a /etc/default/grub
+echo "GRUB_SAVEDEFAULT=true" | tee -a /etc/default/grub
 
 # Set swapiness
 echo "vm.swappiness=10" | tee -a /etc/sysctl.d/99-swappiness.conf

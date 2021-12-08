@@ -50,7 +50,7 @@ alias disk='sudo btrfs filesystem usage /'
 alias userlist="cut -d: -f1 /etc/passwd"
 
 #Pacman for software managment
-alias pacman-installed='sudo pacman -Qs'
+alias pacman-local='sudo pacman -Qs'
 alias pacman-search='sudo pacman -Ss'
 alias pacman-remove='sudo pacman -R'
 alias pacman-install='sudo pacman -S --disable-download-timeout '
@@ -62,7 +62,8 @@ alias pacman-autoremove='sudo pacman -Rns $(pacman -Qtdq)'
 alias pacman-unlock="sudo rm /var/lib/pacman/db.lck"
 alias update='paru -Syyu && flatpak update && pacman-upgrade'
 
-#Paru as aur helper - updates everything
+#Paru as AUR helper
+alias paru-local='paru -Qs '
 alias paru-install='paru -S '
 alias paru-remove='paru -Rs '
 alias paru-search='paru -Ss '
@@ -75,7 +76,7 @@ alias paru-update='paru -Syyu'
 alias grub-refresh='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
 #get fastest mirrors in your neighborhood
-alias ram='rate-mirrors --allow-root arch | sudo tee /etc/pacman.d/mirrorlist'
+alias mirrortest='rate-mirrors --allow-root arch | sudo tee /etc/pacman.d/mirrorlist'
 
 #mounting the folder Public for exchange between host and guest on virtualbox
 alias vbm="sudo mount -t vboxsf -o rw,uid=1000,gid=1000 Public /home/$USER/Public"

@@ -15,7 +15,7 @@ cfdisk /dev/sdb
 # sda1 - 128M for boot partition, primary
 # sda2 - root, primary
 # sdb1 - [SWAP], primary
-# sdb2 - /home, /var, /tmp, primary
+# sdb2 - /home, /var, primary
 
 # Write the filesystem by formatting the drives
 ## FAT32
@@ -23,8 +23,8 @@ mkfs.fat -F32 /dev/sda1
 ## BTRFS
 mkfs.btrfs -d single /dev/sda2 /dev/sdb2
 ## SWAP
-mkswap /dev/sdb2
-swapon /dev/sdb2
+mkswap /dev/sdb1
+swapon /dev/sdb1
 
 # Mount the root partition directly. This must come first!
 mount /dev/sda2 /mnt
@@ -33,7 +33,7 @@ mount /dev/sda2 /mnt
 btrfs su cr /mnt/@
 btrfs su cr /mnt/@home
 btrfs su cr /mnt/@var
-btrfs su cr /mnt/@tmp
+btrfs su cr /mnt/@data
 
 # Unmount root
 umount /mnt
@@ -50,26 +50,22 @@ mkdir /mnt/boot
 # mounted on the secondary drive
 mkdir /mnt/home
 mkdir /mnt/var
-mkdir /mnt/tmp
+mkdir /mnt/data
 
 # Mount the boot directory
 mount /dev/sda1 /mnt/boot
 
 # Mount the other directories
-mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@home /dev/sdb1 /mnt/home
-mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@var /dev/sdb1 /mnt/var
-mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@tmp /dev/sdb1 /mnt/tmp
+mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@home /dev/sdb2 /mnt/home
+mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@var /dev/sdb2 /mnt/var
+mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@data /dev/sdb2 /mnt/data
 
 # Install the operational system
 # Replace intel-ucode with amd-ucode if you have an AMD CPU
 ## Pick one of the following
 
 ## Regular Kernel
-pacstrap /mnt base base-devel linux linux-firmware intel-ucode btrfs-progs nvidia bash nano
-
-## Or
-## LTS Kernel
-pacstrap /mnt base base-devel linux-lts linux-firmware intel-ucode btrfs-progs nvidia-lts bash nano
+pacstrap /mnt base base-devel linux linux-lts linux-firmware intel-ucode btrfs-progs nvidia nvidia-lts bash nano
 
 # Create the fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -108,7 +104,7 @@ bash install3.sh
 
 # Follow the instructions. Computer will reboot at the end.
 
-# Setup swap file
+# Setup swap file - DO NOT do this if a swap partition was set up
 ## Create the swap file (2GB)
 sudo dd if=/dev/zero of=/var/swapfile bs=1024 count=1953125‬
 
