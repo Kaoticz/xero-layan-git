@@ -12,8 +12,8 @@ timedatectl set-ntp true
 cfdisk /dev/sda
 cfdisk /dev/sdb
 
-# sda1 - 128M for boot partition, primary
-# sda2 - root, primary
+# sda1 - /boot partition, primary (128M is enough for 2 kernel images)
+# sda2 - / partition, primary
 # sdb1 - [SWAP], primary
 # sdb2 - /home, /var, primary
 
@@ -33,7 +33,7 @@ mount /dev/sda2 /mnt
 btrfs su cr /mnt/@
 btrfs su cr /mnt/@home
 btrfs su cr /mnt/@var
-btrfs su cr /mnt/@data
+btrfs su cr /mnt/@opt
 
 # Unmount root
 umount /mnt
@@ -50,7 +50,7 @@ mkdir /mnt/boot
 # mounted on the secondary drive
 mkdir /mnt/home
 mkdir /mnt/var
-mkdir /mnt/data
+mkdir /mnt/opt
 
 # Mount the boot directory
 mount /dev/sda1 /mnt/boot
@@ -58,14 +58,14 @@ mount /dev/sda1 /mnt/boot
 # Mount the other directories
 mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@home /dev/sdb2 /mnt/home
 mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@var /dev/sdb2 /mnt/var
-mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@data /dev/sdb2 /mnt/data
+mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@opt /dev/sdb2 /mnt/opt
 
 # Install the operational system
 # Replace intel-ucode with amd-ucode if you have an AMD CPU
-## Pick one of the following
+## linux-lts, if you're using the LTS kernel
 
 ## Regular Kernel
-pacstrap /mnt base base-devel linux linux-lts linux-firmware intel-ucode btrfs-progs nvidia nvidia-lts bash nano
+pacstrap /mnt base base-devel linux linux-firmware intel-ucode btrfs-progs nvidia nvidia-lts bash nano
 
 # Create the fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -103,6 +103,11 @@ bash install2.sh
 bash install3.sh
 
 # Follow the instructions. Computer will reboot at the end.
+
+################ Extra ################
+
+# Add the LTS kernel as a second option
+sudo pacman -S linux-lts && grub-refresh
 
 # Setup swap file - DO NOT do this if a swap partition was set up
 ## Create the swap file (2GB)

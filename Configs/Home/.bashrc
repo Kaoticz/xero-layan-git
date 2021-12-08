@@ -28,7 +28,7 @@ fi
 bind "set completion-ignore-case on"
 
 #systeminfo
-alias probe="sudo -E hw-probe -all -upload"
+#alias probe="sudo -E hw-probe -all -upload"
 
 # Replace ls with exa
 alias ls='exa -al --color=always --group-directories-first --icons' # preferred listing
@@ -56,7 +56,7 @@ alias pacman-remove='sudo pacman -R'
 alias pacman-install='sudo pacman -S --disable-download-timeout '
 alias pacman-localinstall='sudo pacman -U '
 alias pacman-upgrade='pacman -Sy archlinux-keyring --needed --noconfirm && sudo pacman -Syyu'
-alias pacman-clrcache='sudo pacman -Scc'
+alias pacman-clear='sudo pacman -Scc'
 alias pacman-update='sudo pacman -Sy'
 alias pacman-autoremove='sudo pacman -Rns $(pacman -Qtdq)'
 alias pacman-unlock="sudo rm /var/lib/pacman/db.lck"
@@ -64,10 +64,11 @@ alias update='paru -Syyu && flatpak update && pacman-upgrade'
 
 #Paru as AUR helper
 alias paru-local='paru -Qs '
-alias paru-install='paru -S '
-alias paru-remove='paru -Rs '
 alias paru-search='paru -Ss '
-alias paru-update='paru -Syyu'
+alias paru-remove='paru -Rs '
+alias paru-install='paru -S '
+alias paru-update='paru -Sy'
+alias paru-upgrade='paru -Syyu'
 
 #Snap Update
 #alias sup='sudo snap refresh'
@@ -79,7 +80,7 @@ alias grub-refresh='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 alias mirrortest='rate-mirrors --allow-root arch | sudo tee /etc/pacman.d/mirrorlist'
 
 #mounting the folder Public for exchange between host and guest on virtualbox
-alias vbm="sudo mount -t vboxsf -o rw,uid=1000,gid=1000 Public /home/$USER/Public"
+#alias vbm="sudo mount -t vboxsf -o rw,uid=1000,gid=1000 Public /home/$USER/Public"
 
 #Bash aliases
 alias journal='journalctl -p 3 -xb'
@@ -88,13 +89,10 @@ alias reload='cd ~ && source ~/.bashrc'
 alias cls='clear'
 
 #hardware info --short
-alias hw="hwinfo --short"
+#alias hw="hwinfo --short"
 
 #youtube-dl
-alias ytv-best='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio" --merge-output-format mp4 '
-
-#userlist
-alias userlist="cut -d: -f1 /etc/passwd"
+#alias ytv-best='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio" --merge-output-format mp4 '
 
 #Copy/Remove files/dirs
 alias rmd='rm -r'
@@ -131,7 +129,7 @@ alias lapps='cd ~/.local/share/applications'
 #alias tosddm="sudo pacman -S sddm --noconfirm --needed ; sudo systemctl enable sddm.service -f ; echo 'Sddm is active - reboot now'"
 
 #Recent Installed Packages
-alias last-installed="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
+alias newest-installed="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 alias oldest-installed="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
 
 # Shutdown and reboot
