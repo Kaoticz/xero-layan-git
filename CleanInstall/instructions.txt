@@ -2,7 +2,7 @@
 
 # Setup keyboard layout
 # localectl list-keymaps
-# loadkeys br-abnt
+loadkeys br-abnt
 
 # Setup system clock
 timedatectl set-timezone America/Sao_Paulo
@@ -14,16 +14,33 @@ cfdisk /dev/sdb
 
 # sda1 - 128M for boot partition, primary
 # sda2 - root, primary
-# sdb1 - /home, primary
-# sdb2 - /var, primary
+# sdb1 - [SWAP], primary
+# sdb2 - /home, /var, /tmp, primary
 
 # Write the filesystem by formatting the drives
-mkfs.ext4 /dev/sda1
-mkfs.ext4 /dev/sda2
-mkfs.ext4 /dev/sdb1
+## FAT32
+mkfs.fat -F32 /dev/sda1
+## BTRFS
+mkfs.btrfs -d single /dev/sda2 /dev/sdb2
+## SWAP
+mkswap /dev/sdb2
+swapon /dev/sdb2
 
-# Mount the root partition. This must come first!
+# Mount the root partition directly. This must come first!
 mount /dev/sda2 /mnt
+
+# Create the btrfs subvolumes
+btrfs su cr /mnt/@
+btrfs su cr /mnt/@home
+btrfs su cr /mnt/@var
+btrfs su cr /mnt/@tmp
+
+# Unmount root
+umount /mnt
+
+# Mount root through the btrfs subvolume
+## space_cache might cause issues
+mount -o noatime,commit=120,compress=zstd,discard=async,space_cache,subvol=@ /dev/sda2 /mnt
 
 # Mount everything else
 # Create the boot directory
@@ -33,23 +50,26 @@ mkdir /mnt/boot
 # mounted on the secondary drive
 mkdir /mnt/home
 mkdir /mnt/var
+mkdir /mnt/tmp
 
 # Mount the boot directory
 mount /dev/sda1 /mnt/boot
 
 # Mount the other directories
-mount /dev/sdb1 /mnt/home
-mount /dev/sdb1 /mnt/var
+mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@home /dev/sdb1 /mnt/home
+mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@var /dev/sdb1 /mnt/var
+mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@tmp /dev/sdb1 /mnt/tmp
 
 # Install the operational system
+# Replace intel-ucode with amd-ucode if you have an AMD CPU
 ## Pick one of the following
 
 ## Regular Kernel
-pacstrap /mnt base base-devel linux linux-firmware nvidia bash nano
+pacstrap /mnt base base-devel linux linux-firmware intel-ucode btrfs-progs nvidia bash nano
 
 ## Or
 ## LTS Kernel
-pacstrap /mnt base base-devel linux-lts linux-firmware nvidia-lts bash nano
+pacstrap /mnt base base-devel linux-lts linux-firmware intel-ucode btrfs-progs nvidia-lts bash nano
 
 # Create the fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -111,7 +131,6 @@ echo "/var/swapfile none swap sw 0 0" | sudo tee -a /etc/fstab
 
 ###### List of KDE applications to install ######
 # 5 - ark
-# 6 - artikulate
 # 13 - dolphin
 # 17 - ffmpegthumbs
 # 18 - filelight
@@ -121,7 +140,6 @@ echo "/var/swapfile none swap sw 0 0" | sudo tee -a /etc/fstab
 # 45 - kcharselect
 # 46 - kcolorchooser
 # 47 - kcron
-# 51 - kdeconnect (only if you have a phone)
 # 52 - kdegraphics-mobipocket
 # 53 - kdegraphics-thumbnailers
 # 60 - kdialog
@@ -146,5 +164,4 @@ echo "/var/swapfile none swap sw 0 0" | sudo tee -a /etc/fstab
 # 156 - svgpart
 # 157 - sweeper
 # 170 - umbrello
-# 171 - yakuake
 # 172 - zeroconf-ioslave

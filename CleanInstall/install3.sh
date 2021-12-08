@@ -11,7 +11,7 @@ echo "Server = https://xerolinux.github.io/\$repo/\$arch" | sudo tee -a /etc/pac
 sudo pacman -Syyu --noconfirm
 
 # Install common tools
-sudo pacman -S --needed --noconfirm --disable-download-timeout git exa awk
+sudo pacman -S --needed --noconfirm --disable-download-timeout git exa awk thunar expac
 
 # Install paru
 Input=
@@ -24,6 +24,7 @@ then
     git clone https://aur.archlinux.org/paru.git /tmp/paru
 	cd /tmp/paru
 	makepkg -si
+	sudo pacman -S --needed --noconfirm --disable-download-timeout asp bat
 fi
 
 # Install the Xero Layan theme

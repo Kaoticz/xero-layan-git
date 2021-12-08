@@ -12,6 +12,9 @@ grub-install /dev/sda
 # Add GRUB_DISABLE_OS_PROBER=false to the end of the file
 echo "GRUB_DISABLE_OS_PROBER=false" | tee -a /etc/default/grub
 
+# Set swapiness
+echo "vm.swappiness=10" | tee -a /etc/sysctl.d/99-swappiness.conf
+
 # Generate the grub configuration
 grub-mkconfig -o /boot/grub/grub.cfg
 

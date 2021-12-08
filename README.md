@@ -4,9 +4,6 @@ Yes, the scripts are horrendous. No, I don't care. It's a one-time thing, it rea
 To start from scratch:
 Use `CleanInstall/instructions.txt` as a guide. Follow the files and read the comments along the way.
 
-To start from default KDE
-curl -L https://raw.githubusercontent.com/Kaoticz/xero-layan-git/arch/installArch.sh | usr/bin/bash
-
 ### This is XeroLinux's Layan Rice
 
 -> Some notes before proceeding :

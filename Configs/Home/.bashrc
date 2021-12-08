@@ -43,24 +43,24 @@ alias free="free -h"
 #continue download
 alias wget="wget -c"
 
-#readable output
-alias df='df -h'
-alias disk='df -h'
+# Check disk usage
+alias disk='sudo btrfs filesystem usage /'
 
 #userlist
 alias userlist="cut -d: -f1 /etc/passwd"
 
 #Pacman for software managment
-alias pacman-search='sudo pacman -Qs'
+alias pacman-installed='sudo pacman -Qs'
+alias pacman-search='sudo pacman -Ss'
 alias pacman-remove='sudo pacman -R'
 alias pacman-install='sudo pacman -S --disable-download-timeout '
 alias pacman-localinstall='sudo pacman -U '
-alias pacman-upgrade='sudo pacman -Syyu'
+alias pacman-upgrade='pacman -Sy archlinux-keyring --needed --noconfirm && sudo pacman -Syyu'
 alias pacman-clrcache='sudo pacman -Scc'
 alias pacman-update='sudo pacman -Sy'
 alias pacman-autoremove='sudo pacman -Rns $(pacman -Qtdq)'
 alias pacman-unlock="sudo rm /var/lib/pacman/db.lck"
-alias update='paru && flatpak update && sudo pacman -Syyu'
+alias update='paru -Syyu && flatpak update && pacman-upgrade'
 
 #Paru as aur helper - updates everything
 alias paru-install='paru -S '
@@ -68,26 +68,21 @@ alias paru-remove='paru -Rs '
 alias paru-search='paru -Ss '
 alias paru-update='paru -Syyu'
 
-#Flatpak Update
-alias fpup='flatpak update'
-
 #Snap Update
-alias sup='sudo snap refresh'
+#alias sup='sudo snap refresh'
 
 #grub update
 alias grub-refresh='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
 #get fastest mirrors in your neighborhood
 alias ram='rate-mirrors --allow-root arch | sudo tee /etc/pacman.d/mirrorlist'
-alias reft='sudo systemctl enable reflector.service reflector.timer && sudo systemctl start reflector.service reflector.timer'
 
 #mounting the folder Public for exchange between host and guest on virtualbox
 alias vbm="sudo mount -t vboxsf -o rw,uid=1000,gid=1000 Public /home/$USER/Public"
 
 #Bash aliases
-alias thor='sudo thunar'
-alias jctl='journalctl -p 3 -xb'
-alias ssaver='xscreensaver-demo'
+alias journal='journalctl -p 3 -xb'
+alias screensaver='xscreensaver-demo'
 alias reload='cd ~ && source ~/.bashrc'
 alias cls='clear'
 
@@ -131,8 +126,8 @@ alias sapps='cd /usr/share/applications'
 alias lapps='cd ~/.local/share/applications'
 
 #switch between lightdm and sddm
-alias tolightdm="sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm --needed ; sudo systemctl enable lightdm.service -f ; echo 'Lightm is active - reboot now'"
-alias tosddm="sudo pacman -S sddm --noconfirm --needed ; sudo systemctl enable sddm.service -f ; echo 'Sddm is active - reboot now'"
+#alias tolightdm="sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm --needed ; sudo systemctl enable lightdm.service -f ; echo 'Lightm is active - reboot now'"
+#alias tosddm="sudo pacman -S sddm --noconfirm --needed ; sudo systemctl enable sddm.service -f ; echo 'Sddm is active - reboot now'"
 
 #Recent Installed Packages
 alias last-installed="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
