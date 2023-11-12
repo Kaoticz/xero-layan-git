@@ -1,5 +1,5 @@
 [$Version]
-update_info=kwin.upd:replace-scalein-with-scale,kwin.upd:port-minimizeanimation-effect-to-js,kwin.upd:port-scale-effect-to-js,kwin.upd:port-dimscreen-effect-to-js,kwin.upd:auto-bordersize,kwin.upd:animation-speed,kwin.upd:desktop-grid-click-behavior,kwin.upd:no-swap-encourage,kwin.upd:make-translucency-effect-disabled-by-default,kwin.upd:remove-flip-switch-effect,kwin.upd:remove-cover-switch-effect,kwin.upd:remove-cubeslide-effect,kwin.upd:remove-xrender-backend
+update_info=kwin.upd:replace-scalein-with-scale,kwin.upd:port-minimizeanimation-effect-to-js,kwin.upd:port-scale-effect-to-js,kwin.upd:port-dimscreen-effect-to-js,kwin.upd:auto-bordersize,kwin.upd:animation-speed,kwin.upd:desktop-grid-click-behavior,kwin.upd:no-swap-encourage,kwin.upd:make-translucency-effect-disabled-by-default,kwin.upd:remove-flip-switch-effect,kwin.upd:remove-cover-switch-effect,kwin.upd:remove-cubeslide-effect,kwin.upd:remove-xrender-backend,kwin.upd:enable-scale-effect-by-default,kwin.upd:overview-group-plugin-id,kwin.upd:animation-speed-cleanup,kwin.upd:replace-cascaded-zerocornered
 
 [Compositing]
 GLCore=true
@@ -21,6 +21,25 @@ NoiseStrength=0
 BorderActivateAll=9
 
 [Effect-Wobbly]
+Drag=97
+MoveFactor=25
+Stiffness=1
+WobblynessLevel=4
+
+[Effect-blur]
+BlurStrength=3
+NoiseStrength=0
+
+[Effect-overview]
+BorderActivate=5
+
+[Effect-presentwindows]
+BorderActivateAll=9
+
+[Effect-windowview]
+BorderActivateAll=9
+
+[Effect-wobblywindows]
 Drag=97
 MoveFactor=25
 Stiffness=1
@@ -48,15 +67,27 @@ slideEnabled=false
 slidebackEnabled=true
 synchronizeskipswitcherEnabled=false
 videowallEnabled=false
-wobblywindowsEnabled=true
 
 [Script-forceblur]
 blurContent=true
 patterns=dolphin\nyakuake\nurxvt\nkeepassxc\nkonsole\nthunar
 
+[Script-minimizeall]
+BorderActivate=3
+
 [TabBox]
 BorderActivate=9
 LayoutName=preview_reel
 
+[Tiling]
+padding=4
+
+[Tiling][e9557413-6db3-5b30-bf62-d10a5652abab]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
 [Windows]
 Placement=Centered
+
+[org.kde.kdecoration2]
+ButtonsOnLeft=XIA
+ButtonsOnRight=HSM

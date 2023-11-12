@@ -1,2 +1,14 @@
+[Applications][discord]
+Seen=true
+
+[Applications][io.github.mimbrero.WhatsAppDesktop]
+Seen=true
+
+[Applications][org.gnome.clocks]
+Seen=true
+
+[Applications][org.keepassxc.KeePassXC]
+Seen=true
+
 [Applications][vivaldi-stable]
 Seen=true

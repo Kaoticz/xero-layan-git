@@ -13,6 +13,8 @@
 [[ $- != *i* ]] && return
 
 export HISTCONTROL=ignoreboth:erasedups
+export GPG_TTY=$(tty) # Enable commit signing in the shell
+export EDITOR=nano    # Set nano as the default text editor for sudoedit
 
 PS1='[\u@\h \W]\$ '
 
@@ -24,11 +26,8 @@ if [ -d "$HOME/.local/bin" ] ;
   then PATH="$HOME/.local/bin:$PATH"
 fi
 
-#ignore upper and lowercase when TAB completion
+# Ignore upper and lowercase during TAB completion
 bind "set completion-ignore-case on"
-
-#systeminfo
-#alias probe="sudo -E hw-probe -all -upload"
 
 # Replace ls with exa
 alias ls='exa -al --color=always --group-directories-first --icons' # preferred listing
@@ -37,50 +36,26 @@ alias ll='exa -l --color=always --group-directories-first --icons'  # long forma
 alias lt='exa -aT --color=always --group-directories-first --icons' # tree listing
 alias l='exa -lah --color=always --group-directories-first --icons' # tree listing
 
-#available free memory
-alias free="free -h"
-
-#continue download
-alias wget="wget -c"
-
 # Check disk usage
 alias disk='sudo btrfs filesystem usage /'
 
-#userlist
+# Userlist
 alias userlist="cut -d: -f1 /etc/passwd"
 
-#Pacman for software managment
-alias pacman-local='sudo pacman -Qs'
-alias pacman-search='sudo pacman -Ss'
-alias pacman-remove='sudo pacman -R'
-alias pacman-install='sudo pacman -S --disable-download-timeout '
-alias pacman-localinstall='sudo pacman -U '
-alias pacman-upgrade='pacman -Sy archlinux-keyring --needed --noconfirm && sudo pacman -Syyu'
-alias pacman-clear='sudo pacman -Scc'
-alias pacman-update='sudo pacman -Sy'
-alias pacman-autoremove='sudo pacman -Rns $(pacman -Qtdq)'
+# Package managment
 alias pacman-unlock="sudo rm /var/lib/pacman/db.lck"
-alias update='paru -Syyu && flatpak update && pacman-upgrade'
-
-#Paru as AUR helper
+alias update='flatpak update && paru -Syu '
 alias paru-local='paru -Qs '
 alias paru-search='paru -Ss '
 alias paru-remove='paru -Rs '
-alias paru-install='paru -S '
-alias paru-update='paru -Sy'
-alias paru-upgrade='paru -Syyu'
+alias paru-install='paru --disable-download-timeout -S '
+alias paru-upgrade='paru --disable-download-timeout -Syu '
+alias paru-localinstall='paru -U '
+alias paru-clear='paru -Scc'
+alias paru-autoremove='sudo paru -Rns $(paru -Qtdq)'
 
-#Snap Update
-#alias sup='sudo snap refresh'
-
-#grub update
-alias grub-refresh='sudo grub-mkconfig -o /boot/grub/grub.cfg'
-
-#get fastest mirrors in your neighborhood
-alias mirrortest='rate-mirrors --allow-root arch | sudo tee /etc/pacman.d/mirrorlist'
-
-#mounting the folder Public for exchange between host and guest on virtualbox
-#alias vbm="sudo mount -t vboxsf -o rw,uid=1000,gid=1000 Public /home/$USER/Public"
+# Get the fastest mirrors for your location
+alias update-mirrors='rate-mirrors --allow-root arch | sudo tee /etc/pacman.d/mirrorlist'
 
 #Bash aliases
 alias journal='journalctl -p 3 -xb'
@@ -88,28 +63,17 @@ alias screensaver='xscreensaver-demo'
 alias reload='cd ~ && source ~/.bashrc'
 alias cls='clear'
 
-#hardware info --short
-#alias hw="hwinfo --short"
+# Youtube
+alias youtube='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio" --merge-output-format mp4 '
 
-#youtube-dl
-#alias ytv-best='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio" --merge-output-format mp4 '
-
-#Copy/Remove files/dirs
-alias rmd='rm -r'
-alias srm='sudo rm'
-alias srmd='sudo rm -r'
-alias cpd='cp -R'
-alias scp='sudo cp'
-alias scpd='sudo cp -R'
-
-#nano
-alias bashrc='sudo nano ~/.bashrc'
-alias sddmconf='sudo nano /etc/sddm.conf'
-alias pacmanconf='sudo nano /etc/pacman.conf'
-alias makepkgconf='sudo nano /etc/makepkg.conf'
-alias grubconf='sudo nano /etc/default/grub'
-alias sambaconf='sudo nano /etc/samba/smb.conf'
-alias repolist='sudo nano /etc/pacman.d/mirrorlist'
+# Configuration files
+alias bashrc='kate ~/.bashrc & disown'
+alias pacmanconf='sudo -e /etc/pacman.conf'
+alias makepkgconf='sudo -e /etc/makepkg.conf'
+alias refindconf='sudo -e /efi/EFI/refind/refind.conf'
+alias refindlinuxconf='sudo -e /boot/refind_linux.conf'
+alias sambaconf='sudo -e /etc/samba/smb.conf'
+alias repolist='sudo -e /etc/pacman.d/mirrorlist'
 
 #cd/ aliases
 alias home='cd ~'
@@ -121,12 +85,8 @@ alias desktop='cd ~/Desktop'
 alias pictures='cd ~/Pictures'
 alias donwloads='cd ~/Downloads'
 alias documents='cd ~/Documents'
-alias sapps='cd /usr/share/applications'
-alias lapps='cd ~/.local/share/applications'
-
-#switch between lightdm and sddm
-#alias tolightdm="sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm --needed ; sudo systemctl enable lightdm.service -f ; echo 'Lightm is active - reboot now'"
-#alias tosddm="sudo pacman -S sddm --noconfirm --needed ; sudo systemctl enable sddm.service -f ; echo 'Sddm is active - reboot now'"
+alias global-apps='cd /usr/share/applications'
+alias local-apps='cd ~/.local/share/applications'
 
 #Recent Installed Packages
 alias newest-installed="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
@@ -136,31 +96,62 @@ alias oldest-installed="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail 
 alias reboot="sudo reboot"
 alias shutdown="sudo shutdown now"
 
-# # ex = EXtractor for all kinds of archives
-# # usage: extract <file>
+## Extracts a compressed file.
+## Usage: extract <file>
 extract ()
 {
-  if [ -f $1 ] ; then
+  if [ -f "$1" ] ; then
     case $1 in
-      *.tar.bz2)   tar xjf $1   ;;
-      *.tar.gz)    tar xzf $1   ;;
-      *.bz2)       bunzip2 $1   ;;
-      *.rar)       unrar x $1   ;;
-      *.gz)        gunzip $1    ;;
-      *.tar)       tar xf $1    ;;
-      *.tbz2)      tar xjf $1   ;;
-      *.tgz)       tar xzf $1   ;;
-      *.zip)       unzip $1     ;;
-      *.Z)         uncompress $1;;
-      *.7z)        7z x $1      ;;
-      *.deb)       ar x $1      ;;
-      *.tar.xz)    tar xf $1    ;;
-      *.tar.zst)   unzstd $1    ;;
+      *.tar.bz2)   tar xjf "$1"   ;;
+      *.tar.gz)    tar xzf "$1"   ;;
+      *.bz2)       bunzip2 "$1"   ;;
+      *.rar)       unrar x "$1"   ;;
+      *.gz)        gunzip "$1"    ;;
+      *.tar)       tar xf "$1"    ;;
+      *.tbz2)      tar xjf "$1"   ;;
+      *.tgz)       tar xzf "$1"   ;;
+      *.zip)       unzip "$1"     ;;
+      *.Z)         uncompress "$1";;
+      *.7z)        7z x "$1"      ;;
+      *.deb)       ar x "$1"      ;;
+      *.tar.xz)    tar xf "$1"    ;;
+      *.tar.zst)   unzstd "$1"    ;;
       *)           echo "'$1' cannot be extracted via extract()" ;;
     esac
   else
     echo "'$1' is not a valid file"
   fi
+}
+
+## Swaps the name of one file with another (also works for directories, drives and pipes).
+## Usage: swap <test1.txt> <test2.txt>
+swap ()
+{
+    test $# -eq 2 || return 2
+
+    test -e "$1" || return 3
+    test -e "$2" || return 3
+
+    local lname="$(basename "$1")"
+    local rname="$(basename "$2")"
+    local owner1="$(stat -c '%U' $1)"
+    local owner2="$(stat -c '%U' $2)"
+    local priv=$([[ $owner1 == "root" || $owner2 == "root" ]] && echo "sudo" || echo "")
+
+    ( cd "$(dirname "$1")" && $priv mv -T "$lname" ".${rname}" ) && \
+    ( cd "$(dirname "$2")" && $priv mv -T "$rname" "$lname" ) && \
+    ( cd "$(dirname "$1")" && $priv mv -T ".${rname}" "$rname" )
+}
+
+# Quick initialization of frequently used programs.
+# Usage: startup
+startup()
+{
+    discord > /dev/null & disown
+    element-desktop > /dev/null & disown
+    betterbird > /dev/null & disown
+    tutanota-desktop > /dev/null & disown
+    io.github.mimbrero.WhatsAppDesktop > /dev/null & disown
 }
 
 clear

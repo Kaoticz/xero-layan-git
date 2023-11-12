@@ -78,6 +78,7 @@ Item {
             id: refreshPeriod
 
             from: 1
+            to: 86400
             editable: true
 
             validator: IntValidator {
@@ -93,7 +94,7 @@ Item {
         }
 
         PlasmaComponents.Label {
-            text: "Version 2.3.6"
+            text: "Version 2.5.3"
         }
     }
 

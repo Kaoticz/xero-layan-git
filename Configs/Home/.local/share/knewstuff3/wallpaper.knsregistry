@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE khotnewstuff3>
+<hotnewstuffregistry>
+ <stuff category="299">
+  <name>Layan wallpaper</name>
+  <providerid>https://api.kde-look.org/ocs/v1/</providerid>
+  <author>vinceliuice</author>
+  <homepage>https://store.kde.org/p/1309218</homepage>
+  <licence></licence>
+  <version></version>
+  <rating>70</rating>
+  <downloads>364202</downloads>
+  <installedfile>/home/kotz/.local/share/wallpapers/mosCgd-Layan/*</installedfile>
+  <id>1309218</id>
+  <releasedate>2020-05-19</releasedate>
+  <summary>Layan wallpaper</summary>
+  <changelog></changelog>
+  <preview>https://images.pling.com/cache/100x100-0/img/00/00/32/24/44/1309218/56c7cecf6cbf36ae3c18198c0874278fbbc3.png</preview>
+  <previewBig>https://images.pling.com/cache/770x540-0/img/00/00/32/24/44/1309218/56c7cecf6cbf36ae3c18198c0874278fbbc3.png</previewBig>
+  <payload>https://files04.pling.com/api/files/download/j/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE1ODk4NzY2NzAiLCJvIjoiMSIsInMiOiJlNzRkZjU1MmIzYjNjMTE4MjNhNzhiY2JkZWQxZmEwMmVjNGVkZjc5ZDY5OTZmM2MyOGY5MDAxY2ExY2YyM2YxZWE2MTQ3OTI5NmUyZTk1MmQ3NWU5ZTE3MzE3YjA0Mzc2YjVjMjIwZmMwNmIxNjcyMDNhZWUyMjhjNWJjNjBkYiIsInQiOjE2OTk2ODcwNjEsInN0ZnAiOm51bGwsInN0aXAiOiIxODcuNTguMTA4Ljc2In0.YCZd_yBPls0JtqJ_8IG-LYqonLfqebw7KYj_25qhzu8/Layan.tar.xz</payload>
+  <tags>gplv3,kde,wallpaper,original-product,plasma,artwork</tags>
+  <status>installed</status>
+ </stuff>
+</hotnewstuffregistry>

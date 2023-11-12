@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE khotnewstuff3>
+<hotnewstuffregistry>
+ <stuff category="135">
+  <name>Layan gtk theme</name>
+  <providerid>https://api.kde-look.org/ocs/v1/</providerid>
+  <author>vinceliuice</author>
+  <homepage>https://store.kde.org/p/1309214</homepage>
+  <licence></licence>
+  <version></version>
+  <rating>92</rating>
+  <downloads>1235</downloads>
+  <installedfile>/home/kotz/.themes/Layan-Dark/*</installedfile>
+  <id>1309214</id>
+  <releasedate>2023-11-05</releasedate>
+  <summary>Layan is a flat Material Design theme for GTK 3, GTK 2 and Gnome-Shell&lt;br />
+---------------------&lt;br />
+&lt;strong>Icon theme&lt;/strong>: Tela icon theme&lt;br />
+&lt;a href="https://www.pling.com/p/1279924/" target="_blank" rel="nofollow">https://www.pling.com/p/1279924/&lt;/a>&lt;br...</summary>
+  <changelog></changelog>
+  <preview>https://images.pling.com/cache/100x100-0/img/00/00/32/24/44/1309214/2da0d54f02aa8c1841810cbf1cd204a841b9.png</preview>
+  <previewBig>https://images.pling.com/cache/770x540-0/img/00/00/32/24/44/1309214/2da0d54f02aa8c1841810cbf1cd204a841b9.png</previewBig>
+  <payload>https://files04.pling.com/api/files/download/j/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE2OTkyMTI2ODUiLCJvIjoiMSIsInMiOiJmZDhkNTc1NmJmMzVkODAyZjkxNzliNzFhODEwN2FiYjNjNDQ2ODdiZDQ2N2I2ZmIxYmE1NDFkMGM3NmIzYzA4ZTExZGEyMTVjNDE2ZGY0NTJjMTBhMDYxZTg3NGE3OGVjNTk1N2ZiZDBiNzNhNzA3NzcxMDQyMDI2ZDc1OGY2MCIsInQiOjE2OTk3NzcwNjQsInN0ZnAiOm51bGwsInN0aXAiOiIxODcuNTguMTA4Ljc2In0.-XKaur_W6t1IQEiyHPcwtLa3Bqul5C-g6IwwDB-YpEk/Layan-Dark.tar.xz</payload>
+  <tags>theme,unix,original-product,linux,gplv3,gnome</tags>
+  <status>installed</status>
+ </stuff>
+</hotnewstuffregistry>

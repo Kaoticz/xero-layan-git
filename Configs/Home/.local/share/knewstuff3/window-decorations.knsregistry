@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE khotnewstuff3>
+<hotnewstuffregistry>
+ <stuff category="114">
+  <name>Layan aurorae theme</name>
+  <providerid>https://api.kde-look.org/ocs/v1/</providerid>
+  <author>vinceliuice</author>
+  <homepage>https://store.kde.org/p/1325238</homepage>
+  <licence></licence>
+  <version></version>
+  <rating>69</rating>
+  <downloads>107701</downloads>
+  <installedfile>/home/kotz/.local/share/aurorae/themes/Layan-solid/*</installedfile>
+  <installedfile>/home/kotz/.local/share/aurorae/themes/Layan/*</installedfile>
+  <installedfile>/home/kotz/.local/share/aurorae/themes/Layan-light/*</installedfile>
+  <id>1325238</id>
+  <releasedate>2022-06-28</releasedate>
+  <summary>Layan modern and elegant design theme for kde desktop&lt;br />
+---------------------&lt;br />
+&lt;strong>gtk theme&lt;/strong>: Layan&lt;br />
+&lt;a href="https://www.pling.com/p/1309214/" target="_blank" rel="nofollow">https://www.pling.com/p/1309214/&lt;/a>&lt;br />
+---------------------&lt;br />
+&lt;strong>Icon theme&lt;/strong>: Tela icon theme&lt;br />
+&lt;a href="https://www.pling.com/p/1279924/" target="_blank" rel="nofollow">https://www.pling.com/p/1279924/&lt;/a>&lt;br />
+---------------------&lt;br />
+&lt;strong>Wallpaper&lt;/strong>: Layan&lt;br />
+&lt;a href="https://www.pling.com/p/1309218/" target="_blank" rel="nofollow">https://www.pling.com/p/1309218/&lt;/a></summary>
+  <changelog></changelog>
+  <preview>https://images.pling.com/cache/100x100-0/img/00/00/32/24/44/1325238/50fba2e9d2e843b351b59c52c1c91df53a8d.png</preview>
+  <previewBig>https://images.pling.com/cache/770x540-0/img/00/00/32/24/44/1325238/50fba2e9d2e843b351b59c52c1c91df53a8d.png</previewBig>
+  <payload>https://files04.pling.com/api/files/download/j/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE2NTY0Mjc1ODkiLCJvIjoiMSIsInMiOiI3NjIwZGYwZTQwNjAyNjBjNDJmYjMzMWUwYmU0ZmJhMjRiMzkzMzIyN2VmM2I2NDcxOGU1ZmE4ZDgzNGRjZWQ5NDdmNWJjNzY3ZmIzZTdkZWMwMDhjYTZmOWFjNzE2ZjFlZjJiZTI4ZTg4YmIzNTlmZmYzZjE2ZDJlMGMyNTMxMCIsInQiOjE2OTk2ODcwNDgsInN0ZnAiOm51bGwsInN0aXAiOiIxODcuNTguMTA4Ljc2In0.qrglmmPSPHeVqvnEc9kjvRR8g_cTSrP-o-D1_-Je8PY/Layan.tar.gz</payload>
+  <tags>unix,theme,gplv3,original-product,plasma,linux,kde</tags>
+  <status>installed</status>
+ </stuff>
+</hotnewstuffregistry>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE khotnewstuff3>
+<hotnewstuffregistry>
+ <stuff category="104">
+  <name>Layan-light-plasma</name>
+  <providerid>https://api.kde-look.org/ocs/v1/</providerid>
+  <author>vinceliuice</author>
+  <homepage>https://store.kde.org/p/1708362</homepage>
+  <licence></licence>
+  <version></version>
+  <rating>50</rating>
+  <downloads>4821</downloads>
+  <installedfile>/home/kotz/.local/share/plasma/desktoptheme/Layan-light</installedfile>
+  <id>1708362</id>
+  <releasedate>2022-12-03</releasedate>
+  <summary>Layan-light-plasma</summary>
+  <changelog></changelog>
+  <preview>https://images.pling.com/cache/100x100-0/img/00/00/32/24/44/1708362/screenshot-20220213-2138251.png</preview>
+  <previewBig>https://images.pling.com/cache/770x540-0/img/00/00/32/24/44/1708362/screenshot-20220213-2138251.png</previewBig>
+  <payload>https://files04.pling.com/api/files/download/j/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE2NzAwODAyOTUiLCJvIjoiMSIsInMiOiJjMWQxOTY1ODc1MzQ5ZWZmMGFjYjRhYTgxMTQxNzVhNmQ0NzVhN2M2Zjc3ZTE5OGVhNGI5ZWI4OGI5MmVjN2IzN2U4OWFlZGI2NmI2NzYxOTBmNWE4MTg0YzczN2RiZTdjMWYyMTEwYzk1YzFlYzg1ZDcxNDg1OGU2ZjBiNzQ3ZSIsInQiOjE2OTk2ODcxMjAsInN0ZnAiOm51bGwsInN0aXAiOiIxODcuNTguMTA4Ljc2In0.ZDbX6TzfGIoLbgTjGAuCz-Fcd2I4ltLYikM4NL2DyDQ/Layan-light.tar.gz</payload>
+  <tags>original-product,plasma,theme,unix,gplv3,kde,linux</tags>
+  <status>installed</status>
+ </stuff>
+ <stuff category="104">
+  <name>Layan plasma theme</name>
+  <providerid>https://api.kde-look.org/ocs/v1/</providerid>
+  <author>vinceliuice</author>
+  <homepage>https://store.kde.org/p/1325241</homepage>
+  <licence></licence>
+  <version></version>
+  <rating>80</rating>
+  <downloads>5558</downloads>
+  <installedfile>/home/kotz/.local/share/plasma/desktoptheme/Layan</installedfile>
+  <id>1325241</id>
+  <releasedate>2023-10-28</releasedate>
+  <summary>Layan modern and elegant design theme for kde desktop&lt;br />
+---------------------&lt;br />
+&lt;strong>gtk theme&lt;/strong>: Layan&lt;br />
+&lt;a href="https://www.pling.com/p/1309214/" target="_blank" rel="nofollow">https://www.pling.com/p/1309214/&lt;/a>&lt;br />
+---------------------&lt;br />
+&lt;strong>Icon theme&lt;/strong>: Tela icon theme&lt;br />
+&lt;a href="https://www.pling.com/p/1279924/" target="_blank" rel="nofollow">https://www.pling.com/p/1279924/&lt;/a>&lt;br />
+---------------------&lt;br />
+&lt;strong>Wallpaper&lt;/strong>: Layan&lt;br />
+&lt;a href="https://www.pling.com/p/1309218/" target="_blank" rel="nofollow">https://www.pling.com/p/1309218/&lt;/a></summary>
+  <changelog></changelog>
+  <preview>https://images.pling.com/cache/100x100-0/img/00/00/32/24/44/1325241/0103cc7287e0a059282b827939062da324ea.png</preview>
+  <previewBig>https://images.pling.com/cache/770x540-0/img/00/00/32/24/44/1325241/0103cc7287e0a059282b827939062da324ea.png</previewBig>
+  <payload>https://files04.pling.com/api/files/download/j/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE2OTg1MDc2MjYiLCJvIjoiMSIsInMiOiI4NWJmNGQ4OTU3OTZjOWVhYmQ4NmYwMDM4N2Y1YWFiNmMwNzM0ZjliODVjM2MwNzQ0ZTE1ODZiOWFhOTc2ZjVmY2RlNDhiNzlmN2VkMGQ0MWQxNjE0OGEwNDQ1NzQ1MWJlZDU1ZDEzOWI4NmM3YTIyMjc0MGZhMmQyMTdkYjZhMiIsInQiOjE2OTk2ODcwNDIsInN0ZnAiOm51bGwsInN0aXAiOiIxODcuNTguMTA4Ljc2In0.5BNdItzNe0dSdpvp1L3TGJBAbw_A1KcddN2BBgefvlE/Layan.tar.xz</payload>
+  <tags>original-product,plasma,gplv3,linux,kde,unix,theme</tags>
+  <status>installed</status>
+ </stuff>
+</hotnewstuffregistry>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE khotnewstuff3>
+<hotnewstuffregistry>
+ <stuff category="107">
+  <name>Layan cursors</name>
+  <providerid>https://api.kde-look.org/ocs/v1/</providerid>
+  <author>vinceliuice</author>
+  <homepage>https://store.kde.org/p/1365214</homepage>
+  <licence></licence>
+  <version></version>
+  <rating>91</rating>
+  <downloads>474135</downloads>
+  <installedfile>/home/kotz/.icons/Layan-border-cursors/*</installedfile>
+  <id>1365214</id>
+  <releasedate>2020-03-30</releasedate>
+  <summary>Layan cursors theme for linux desktop</summary>
+  <changelog></changelog>
+  <preview>https://images.pling.com/cache/100x100-0/img/00/00/32/24/44/1365214/bf76830de87b7aac326717685c9301cb2f89.png</preview>
+  <previewBig>https://images.pling.com/cache/770x540-0/img/00/00/32/24/44/1365214/bf76830de87b7aac326717685c9301cb2f89.png</previewBig>
+  <payload>https://files04.pling.com/api/files/download/j/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE1ODUxMTQ4NDgiLCJvIjoiMSIsInMiOiI5MzcxY2ZmOWFmM2JkMTM3YWIwZGU5NzhmNDI1OWJjZmExZjVjZDMwZGQwMjFhNzllNDcyZjc4NzU1Yzk4ODBlOTg1YjBhYjcxNThjNjE5ZjMwMThkNTIzYjhiMDJlZTk4ZjFmNzJmOTEwM2MzYmE2NDdiMTZiYjFhOWZlNTkwZSIsInQiOjE2OTk2ODcwOTIsInN0ZnAiOm51bGwsInN0aXAiOiIxODcuNTguMTA4Ljc2In0.OI2o-YiB3c1wI19r_OaBYWLrLJz2CnOwvEHqOgZa-4E/01-Layan-border-cursors.tar.xz</payload>
+  <tags>linux,original-product,unix,cursor,gplv3</tags>
+  <status>installed</status>
+ </stuff>
+</hotnewstuffregistry>

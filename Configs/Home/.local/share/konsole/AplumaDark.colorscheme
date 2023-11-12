@@ -89,8 +89,12 @@ Color=222,222,222
 Color=222,222,222
 
 [General]
+Anchor=0.5,0.5
 Blur=true
 ColorRandomization=false
 Description=Apluma Dark
-Opacity=0.64
+FillStyle=Tile
+Opacity=0.8
 Wallpaper=
+WallpaperFlipType=NoFlip
+WallpaperOpacity=1

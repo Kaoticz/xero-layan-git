@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE khotnewstuff3>
+<hotnewstuffregistry>
+ <stuff category="112">
+  <name>Layan color schemes</name>
+  <providerid>https://api.kde-look.org/ocs/v1/</providerid>
+  <author>vinceliuice</author>
+  <homepage>https://store.kde.org/p/1325239</homepage>
+  <licence></licence>
+  <version></version>
+  <rating>58</rating>
+  <downloads>130040</downloads>
+  <installedfile>/home/kotz/.local/share/color-schemes/LayanLight.colors</installedfile>
+  <installedfile>/home/kotz/.local/share/color-schemes/Layan.colors</installedfile>
+  <id>1325239</id>
+  <releasedate>2022-02-13</releasedate>
+  <summary>Layan modern and elegant design theme for kde desktop&lt;br />
+---------------------&lt;br />
+&lt;strong>gtk theme&lt;/strong>: Layan&lt;br />
+&lt;a href="https://www.pling.com/p/1309214/" target="_blank" rel="nofollow">https://www.pling.com/p/1309214/&lt;/a>&lt;br />
+---------------------&lt;br />
+&lt;strong>Icon theme&lt;/strong>: Tela icon theme&lt;br />
+&lt;a href="https://www.pling.com/p/1279924/" target="_blank" rel="nofollow">https://www.pling.com/p/1279924/&lt;/a>&lt;br />
+---------------------&lt;br />
+&lt;strong>Wallpaper&lt;/strong>: Layan&lt;br />
+&lt;a href="https://www.pling.com/p/1309218/" target="_blank" rel="nofollow">https://www.pling.com/p/1309218/&lt;/a></summary>
+  <changelog></changelog>
+  <preview>https://images.pling.com/cache/100x100-0/img/00/00/32/24/44/1325239/c4f7b851ffdc6b8ed65a36dba14ebe877b91.png</preview>
+  <previewBig>https://images.pling.com/cache/770x540-0/img/00/00/32/24/44/1325239/c4f7b851ffdc6b8ed65a36dba14ebe877b91.png</previewBig>
+  <payload>https://files04.pling.com/api/files/download/j/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE2NDQ3NjA0MzUiLCJvIjoiMSIsInMiOiIzODVmZGI1NDY4YTA5ZGM4NWEzOTBmNjBhMmQ0NDQzYzZlNmJmMWVhYmQ0NDkzOTcwMzdmMTU3ODE4Y2YxMDRmMTJkNjk1YmQ5ZTk3NTA0ZjU4ZjQwNTY5YmMzMzY4OGI0NDViODQ0NDY0OTdjYjI2ZjUwODAzNDU2YTBjMjdjYSIsInQiOjE2OTk2ODcwMzcsInN0ZnAiOm51bGwsInN0aXAiOiIxODcuNTguMTA4Ljc2In0.q-vaR5VSb9QRkpP7rOF0hCS3ifMbhEIOpHrw-XygRUM/Layan.tar.gz</payload>
+  <tags>kde,linux,gplv3,colorscheme,theme,unix,plasma,original-product</tags>
+  <status>installed</status>
+ </stuff>
+</hotnewstuffregistry>

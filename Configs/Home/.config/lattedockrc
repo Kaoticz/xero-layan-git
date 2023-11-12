@@ -22,8 +22,8 @@ windowSize=980,630
 [PlasmaThemeExtended]
 outlineWidth=1
 
-[PlasmaTransientsConfig]
-PreloadWeight=0
+[ScreenConnectors]
+10=HDMI-0:::0,0 1920x1080
 
 [UniversalSettings]
 badges3DStyle=true

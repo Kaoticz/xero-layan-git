@@ -1,8 +1,7 @@
 For my personal use on a clean Arch install.
-Yes, the scripts are horrendous. No, I don't care. It's a one-time thing, it really doesn't matter.
 
 To start from scratch:
-Use `CleanInstall/instructions.txt` as a guide. Follow the files and read the comments along the way.
+Use `CleanInstall/arch_instructions.txt` as a guide. Follow the files and read the comments along the way.
 
 ### This is XeroLinux's Layan Rice
 

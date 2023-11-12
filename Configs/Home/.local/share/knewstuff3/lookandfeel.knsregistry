@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE khotnewstuff3>
+<hotnewstuffregistry>
+ <stuff category="121">
+  <name>Layan-light-kde-theme</name>
+  <providerid>https://api.kde-look.org/ocs/v1/</providerid>
+  <author>vinceliuice</author>
+  <homepage>https://store.kde.org/p/1708367</homepage>
+  <licence></licence>
+  <version></version>
+  <rating>57</rating>
+  <downloads>4624</downloads>
+  <installedfile>/home/kotz/.local/share/plasma/look-and-feel/com.github.vinceliuice.Layan-light</installedfile>
+  <id>1708367</id>
+  <releasedate>2022-12-03</releasedate>
+  <summary>Layan-light-kde-theme</summary>
+  <changelog></changelog>
+  <preview>https://images.pling.com/cache/100x100-0/img/00/00/32/24/44/1708367/screenshot-20220213-213757.png</preview>
+  <previewBig>https://images.pling.com/cache/770x540-0/img/00/00/32/24/44/1708367/screenshot-20220213-213757.png</previewBig>
+  <payload>https://files04.pling.com/api/files/download/j/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE2NzAwODA1MzAiLCJvIjoiMSIsInMiOiJiYTRjZjhiZmVmNjY5OTQ1OTliY2FlNmNjZGU1YzgzMmQzNjYwMTAzODRkZTZjODczZDdlODEzNGZkNzBkZGJlNjU2NjhkZTliODlkNjFhZTlhNjEwNGRkNWZjZTYzY2IyOGE0NTQ5NTYzYjU2OGY1YmQ5NzAwMDQ0NzkzY2VhMSIsInQiOjE2OTk2ODcxMTIsInN0ZnAiOm51bGwsInN0aXAiOiIxODcuNTguMTA4Ljc2In0.5P93Q-YbQVcHScOYFCzyZshTN9IunSPBWbkJGla7aUE/com.github.vinceliuice.Layan-light.tar.gz</payload>
+  <tags>gplv3,look-and-feel,linux,kde,plasma,original-product,theme,unix</tags>
+  <status>installed</status>
+ </stuff>
+ <stuff category="121">
+  <name>Layan look and feel theme</name>
+  <providerid>https://api.kde-look.org/ocs/v1/</providerid>
+  <author>vinceliuice</author>
+  <homepage>https://store.kde.org/p/1325243</homepage>
+  <licence></licence>
+  <version></version>
+  <rating>88</rating>
+  <downloads>4970</downloads>
+  <installedfile>/home/kotz/.local/share/plasma/look-and-feel/com.github.vinceliuice.Layan</installedfile>
+  <id>1325243</id>
+  <releasedate>2023-10-28</releasedate>
+  <summary>Layan modern and elegant design theme for kde desktop&lt;br />
+---------------------&lt;br />
+For better experience you need this&lt;br />
+&lt;strong>kvantum theme&lt;/strong>: Layan &lt;br />
+&lt;a href="https://www.pling.com/p/1325246/" target="_blank" rel="nofollow">https://www.pling.com/p/1325246/&lt;/a>&lt;br...</summary>
+  <changelog></changelog>
+  <preview>https://images.pling.com/cache/100x100-0/img/00/00/32/24/44/1325243/0103cc7287e0a059282b827939062da324ea.png</preview>
+  <previewBig>https://images.pling.com/cache/770x540-0/img/00/00/32/24/44/1325243/0103cc7287e0a059282b827939062da324ea.png</previewBig>
+  <payload>https://files04.pling.com/api/files/download/j/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE2OTg1MDc3ODYiLCJvIjoiMSIsInMiOiJiYjU3OGQ2YWQ2NDNmZDEzNDMxOTE0ZmRmYTJjMDI3MmJjYmUwNzQzZWM4OGQwNDk4NzJjOTUxYmU5NWUxYzc0OTBiOTRmZjYwZWQ5NjU0MWM3NDBkYmUwNjMzYzg0OGIyNmJhYmIyNzAxODAwMGIwZDJiNzNlYzc4YTA5ZTViMiIsInQiOjE2OTk2ODcwMzEsInN0ZnAiOm51bGwsInN0aXAiOiIxODcuNTguMTA4Ljc2In0.BksY509FSgTK8-znmoywb3wjUbKqFiCBw-jvVPlqHNU/com.github.vinceliuice.Layan.tar.xz</payload>
+  <tags>theme,unix,gplv3,plasma,original-product,kde,linux,look-and-feel</tags>
+  <status>installed</status>
+ </stuff>
+</hotnewstuffregistry>

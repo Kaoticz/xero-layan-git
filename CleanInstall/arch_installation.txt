@@ -1,0 +1,222 @@
+#! /usr/env/bin bash
+
+## 1. Installation
+
+# Set keyboard layout
+loadkeys br-abnt
+
+# Update the system clock
+timedatectl set-timezone America/Sao_Paulo
+timedatectl set-ntp true
+
+# Check the drives and its partitions
+lsblk
+
+# Check this https://wiki.archlinux.org/title/Advanced_Format
+
+# Partition the disk
+# First partition of size +512M
+# Second partition takes everything else
+# Change the type of the first partition to "EF"
+fdisk /dev/sda
+
+# Format the disk
+mkfs.vfat /dev/sda1
+mkfs.btrfs -L mainDrive /dev/sda2 # Suggestion for the drive name: arch_ssdnvme
+
+# Mount the disk and create Btrfs subvolumes
+mount /dev/sda2 /mnt
+
+btrfs su cr /mnt/@
+btrfs su cr /mnt/@home
+
+# Unmount the disk
+umount /mnt
+
+# Mount the root partition and subvolume
+mount -o noatime,commit=120,compress=zstd,discard=async,space_cache=v2,subvol=@ /dev/sda2 /mnt
+
+# Mount the partitions and subvolumes
+mount --mkdir /dev/sda1 /mnt/efi
+mount --mkdir -o noatime,commit=120,compress=zstd,discard=async,space_cache=v2,subvol=@home /dev/sda2 /mnt/home
+
+# Install the system
+pacstrap -K /mnt base base-devel linux-zen linux-zen-headers linux-firmware intel-ucode amd-ucode btrfs-progs archlinux-keyring refind efibootmgr gptfdisk bash nano man-db tldr git #nvidia-dkms
+
+refind-install --root /mnt
+nano /mnt/efi/EFI/refind/refind.conf
+# ...
+# timeout 3
+# enable_mouse
+# extra_kernel_version_strings linux-zen,linux-lts,linux-hardened,linux
+# fold_linux_kernels false
+# default_selection "+,bzImage,vmlinuz"
+# ...
+
+nano /mnt/boot/refind_linux.conf # https://wiki.archlinux.org/title/REFInd#refind_linux.conf
+# ...
+# If you're using the NVIDIA driver, also add:
+# nvidia_drm.modeset=1
+# This is needed to make Wayland work.
+# ...
+# "Boot using default options"     "root=UUID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX rw add_efi_memmap zswap.enabled=0 rootflags=subvol=@ initrd=@\boot\intel-ucode.img initrd=@\boot\amd-ucode.img initrd=@\boot\initramfs-%v.img"
+# "Boot using fallback initramfs"  "root=UUID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX rw add_efi_memmap zswap.enabled=0 rootflags=subvol=@ initrd=@\boot\intel-ucode.img initrd=@\boot\amd-ucode.img initrd=@\boot\initramfs-%v-fallback.img"
+# "Boot to terminal"               "root=UUID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX rw add_efi_memmap zswap.enabled=0 rootflags=subvol=@ initrd=@\boot\intel-ucode.img initrd=@\boot\amd-ucode.img initrd=@\boot\initramfs-%v.img systemd.unit=multi-user.target"
+# ...
+
+# Use this if rEFInd is not able to detect the distro
+#cp /mnt/boot/EFI/refind/icons/os_arch.png /mnt/boot/vmlinuz-linux-zen.png
+
+# Enter the installed system
+arch-chroot /mnt /bin/bash
+
+# Set the default keyboard layout
+loadkeys br-abnt
+echo 'KEYMAP=br-abnt' >> /etc/vconsole.conf
+
+# Fix Systemd's annoyingly long timeout
+nano /etc/systemd/system.conf
+# ...
+# DefaultTimeoutStopSec=15s
+# ...
+
+# Change the default pacman settings
+nano /etc/pacman.conf
+
+# Install the network manager
+pacman --noconfirm --disable-download-timeout -Syu networkmanager
+systemctl enable NetworkManager
+
+# Set the time zone
+ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+hwclock --systohc
+
+# Set the locale
+echo 'LC_ALL=en_US.UTF-8' >> /etc/environment
+echo 'LANG=en_US.UTF-8' >> /etc/locale.conf
+echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen
+locale-gen
+
+# Set the hostname
+echo 'phoenix' > /etc/hostname
+
+# Set zram
+pacman --noconfirm --disable-download-timeout -Syu zram-generator
+nano /etc/systemd/zram-generator.conf
+# ...
+# [zram0]
+# zram-size = ram / 4
+# compression-algorithm = zstd
+# fs-type = swap
+# ...
+
+nano /etc/sysctl.d/99-vm-zram-parameters.conf
+# ...
+# vm.swappiness = 180
+# vm.watermark_boost_factor = 0
+# vm.watermark_scale_factor = 125
+# vm.page-cluster = 0
+# ...
+
+# Add an admin user
+useradd -mg wheel kotz
+passwd kotz
+
+# Define the permissions for sudo
+echo '' >> /etc/sudoers
+echo '#Give admin to all wheel users' >> /etc/sudoers
+echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
+echo '' >> /etc/sudoers
+echo "#Don't ask for root password on the same console session" >> /etc/sudoers
+echo 'Defaults !tty_tickets' >> /etc/sudoers
+
+mkdir /etc/pacman.d/hooks
+nano /etc/pacman.d/hooks/refind.hook
+# ...
+# [Trigger]
+# Operation=Upgrade
+# Type=Package
+# Target=refind
+#
+# [Action]
+# Description = Updating rEFInd on ESP
+# When=PostTransaction
+# Exec=/usr/bin/refind-install
+# ...
+
+# Set DNS provider to https://www.dns0.eu/open
+nano /etc/systemd/resolved.conf
+# ...
+# [Resolve]
+# DNSOverTLS=yes
+# DNS=193.110.81.254 185.253.5.254 2a0f:fc80::ffff 2a0f:fc81::ffff
+# Domains=~.
+# ...
+
+# Set the root password
+passwd
+
+# Exit the installed system
+exit
+
+# Generate the filesystem table file
+genfstab -U /mnt > /mnt/etc/fstab
+# ... Remove "subvolid" from all entries
+# ... And make sure it has the following
+# #/dev/zram0
+# /dev/zram0    none    swap    defaults,pri=100    0 0
+# ...
+
+# Unmount the disk
+umount -R /mnt
+
+# Reboot
+reboot
+
+
+## 2. Log in as a user
+
+# Check if zram is working (should return an output)
+zramctl
+
+# Install paru
+git clone https://aur.archlinux.org/paru-bin.git
+cd paru-bin
+makepkg -si
+paru --disable-download-timeout --asdeps -Syu asp bat devtools bash-completion
+cd ..
+rm -rf paru-bin
+
+## Choose either 2.1 or 2.2
+## Timeshift is generally easier to use.
+
+# 2.1 Set up Timeshift
+paru --disable-download-timeout -Syu timeshift
+sudo systemctl enable cronie
+
+# 2.2 Set up Snapper
+paru --disable-download-timeout -Syu snapper btrfs-assistant refind-btrfs
+snapper -c root_config create-config /
+snapper -c home_config create-config /home
+
+# Stop here if you do not want to use KDE Plasma as your desktop environment.
+
+# 2.3 Install KDE Plasma and applications
+## 8 18-19 23-24 28 34 44 46 52-54 56-57 63-64 73 90-92 96 118-119 123 131 141 143-144 162 165 176 179 182-183
+paru --disable-download-timeout -Syu xorg sddm plasma plasma-wayland-session kde-applications packagekit-qt5 flatpak fwupd pipewire wireplumber pipewire-pulse rate-mirrors-bin
+
+# Update mirror list
+rate-mirrors --allow-root arch | sudo tee /etc/pacman.d/mirrorlist
+
+# Run login manager on startup
+sudo systemctl enable sddm.service
+
+reboot
+
+# 3. (Optional) Setup Layan theme for KDE Plasma
+
+paru -Syu eza awk expac latte-dock kvantum lolcat neofetch nerd-fonts-meta ttf-symbola noto-fonts-cjk noto-fonts-emoji ttf-twemoji
+
+# Go to Plasma's global themes and install the Layan theme from there
+# Then move in the configuration files
+
