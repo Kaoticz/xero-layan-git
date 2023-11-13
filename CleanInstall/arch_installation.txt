@@ -87,6 +87,13 @@ nano /etc/pacman.conf
 pacman --noconfirm --disable-download-timeout -Syu networkmanager
 systemctl enable NetworkManager
 
+# Set DNS provider to https://www.dns0.eu/open
+nano /etc/NetworkManager/conf.d/dns-servers.conf
+# ...
+# [global-dns-domain-*]
+# servers=::1,127.0.0.1,193.110.81.254,185.253.5.254,2a0f:fc80::ffff,2a0f:fc81::ffff
+# ...
+
 # Set the time zone
 ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 hwclock --systohc
@@ -142,15 +149,6 @@ nano /etc/pacman.d/hooks/refind.hook
 # Description = Updating rEFInd on ESP
 # When=PostTransaction
 # Exec=/usr/bin/refind-install
-# ...
-
-# Set DNS provider to https://www.dns0.eu/open
-nano /etc/systemd/resolved.conf
-# ...
-# [Resolve]
-# DNSOverTLS=yes
-# DNS=193.110.81.254 185.253.5.254 2a0f:fc80::ffff 2a0f:fc81::ffff
-# Domains=~.
 # ...
 
 # Set the root password
@@ -215,8 +213,7 @@ reboot
 
 # 3. (Optional) Setup Layan theme for KDE Plasma
 
-paru -Syu eza awk expac latte-dock kvantum lolcat neofetch nerd-fonts-meta ttf-symbola noto-fonts-cjk noto-fonts-emoji ttf-twemoji
+paru -Syu ripgrep eza awk expac latte-dock kvantum neofetch nerd-fonts-meta ttf-symbola noto-fonts-cjk noto-fonts-emoji ttf-twemoji
 
 # Go to Plasma's global themes and install the Layan theme from there
-# Then move in the configuration files
-
+# Then move in the configuration files from https://github.com/Kaoticz/xero-layan-git/tree/arch/Configs
