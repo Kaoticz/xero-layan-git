@@ -22,7 +22,7 @@ fdisk /dev/sda
 
 # Format the disk
 mkfs.vfat /dev/sda1
-mkfs.btrfs -L mainDrive /dev/sda2 # Suggestion for the drive name: arch_ssdnvme
+mkfs.btrfs -L main_drive /dev/sda2 # Suggestion for the drive name: arch_ssdnvme
 
 # Mount the disk and create Btrfs subvolumes
 mount /dev/sda2 /mnt
@@ -33,10 +33,9 @@ btrfs su cr /mnt/@home
 # Unmount the disk
 umount /mnt
 
-# Mount the root partition and subvolume
+# Mount the partitions and their subvolumes
 mount -o noatime,commit=120,compress=zstd,discard=async,space_cache=v2,subvol=@ /dev/sda2 /mnt
 
-# Mount the partitions and subvolumes
 mount --mkdir /dev/sda1 /mnt/efi
 mount --mkdir -o noatime,commit=120,compress=zstd,discard=async,space_cache=v2,subvol=@home /dev/sda2 /mnt/home
 
@@ -215,5 +214,5 @@ reboot
 
 paru -Syu ripgrep eza awk expac latte-dock kvantum neofetch nerd-fonts-meta ttf-symbola noto-fonts-cjk noto-fonts-emoji ttf-twemoji
 
-# Go to Plasma's global themes and install the Layan theme from there
+# Go to Plasma's global themes and install the Layan theme from there.
 # Then move in the configuration files from https://github.com/Kaoticz/xero-layan-git/tree/arch/Configs
