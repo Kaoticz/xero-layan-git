@@ -15,6 +15,7 @@ lsblk
 # Check this https://wiki.archlinux.org/title/Advanced_Format
 
 # Partition the disk
+# Run "g" to make the disk GPT
 # First partition of size +512M
 # Second partition takes everything else
 # Change the type of the first partition to "EF"
@@ -90,7 +91,7 @@ systemctl enable NetworkManager
 nano /etc/NetworkManager/conf.d/dns-servers.conf
 # ...
 # [global-dns-domain-*]
-# servers=::1,127.0.0.1,193.110.81.254,185.253.5.254,2a0f:fc80::ffff,2a0f:fc81::ffff
+# servers=193.110.81.254,185.253.5.254,2a0f:fc80::ffff,2a0f:fc81::ffff
 # ...
 
 # Set the time zone
@@ -198,9 +199,9 @@ snapper -c home_config create-config /home
 
 # Stop here if you do not want to use KDE Plasma as your desktop environment.
 
-# 2.3 Install KDE Plasma and applications
-## 8 18-19 23-24 28 34 44 46 52-54 56-57 63-64 73 90-92 96 118-119 123 131 141 143-144 162 165 176 179 182-183
-paru --disable-download-timeout -Syu xorg sddm plasma plasma-wayland-session kde-applications packagekit-qt5 flatpak fwupd pipewire wireplumber pipewire-pulse rate-mirrors-bin
+# 2.3 Install KDE Plasma and applications (184 total)
+## 8 18-19 23-24 28 34 44 46 52-54 56-57 63-64 73 90-92 96 118-119 123 131 141 143-144 150 162 165 176 179 182-183
+paru --disable-download-timeout -Syu xorg sddm plasma plasma-wayland-session kde-applications packagekit-qt5 flatpak fwupd pipewire wireplumber pipewire-pulse helvum easyeffects rate-mirrors-bin
 
 # Update mirror list
 rate-mirrors --allow-root arch | sudo tee /etc/pacman.d/mirrorlist

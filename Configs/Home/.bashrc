@@ -18,7 +18,9 @@ export GPG_TTY=$(tty) # Enable commit signing in the shell
 export EDITOR=nano    # Set nano as the default text editor for sudoedit
 
 # The terminal's prompt
-PS1='[\u@\h \W]\$ '
+# The pattern \[ASCII_COLOR\] defines a color
+# For example: \[\033[0;36m\]
+PS1='\[\033[0;36m\][\u@\h \W]\$ \[\033[0;32m\]$(git_branch)\[\033[0m\]'
 
 # Add local applications to the shell
 if [ -d "$HOME/.bin" ] ;
@@ -32,8 +34,11 @@ fi
 # Ignore upper and lowercase during TAB completion
 bind "set completion-ignore-case on"
 
-# Replace cat with bat
-alias cat='bat --paging=never '
+# Music
+alias lofi="mpv --no-terminal --no-video --force-window https://www.youtube.com/watch?v=jfKfPfyJRdk & disown"
+alias synthwave="mpv --no-terminal --no-video --force-window https://www.youtube.com/watch?v=4xDzrJKXOOY & disown"
+alias asot="mpv --no-terminal --no-video --force-window https://www.youtube.com/watch?v=5lMmnfVylEE & disown"
+alias asot-video="mpv --no-terminal --force-window https://www.youtube.com/watch?v=5lMmnfVylEE & disown"
 
 # Check disk usage
 alias disk='sudo btrfs filesystem usage /'
@@ -51,8 +56,11 @@ alias cls='clear'
 # Youtube
 alias youtube='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio" --merge-output-format mp4 '
 
+# Replace cat with bat
+alias cat='bat --paging=never '
+
 # Configuration files
-alias bashrc='kate ~/.bashrc & disown'
+alias bashrc='kate ~/.bashrc'
 alias pacmanconf='sudo -e /etc/pacman.conf'
 alias makepkgconf='sudo -e /etc/makepkg.conf'
 alias refindconf='sudo -e /efi/EFI/refind/refind.conf'
@@ -61,6 +69,7 @@ alias sambaconf='sudo -e /etc/samba/smb.conf'
 alias repolist='sudo -e /etc/pacman.d/mirrorlist'
 
 #cd/ aliases
+alias repo='cd ~/Documents/Programming/Repositories'
 alias home='cd ~'
 alias etc='cd /etc'
 alias music='cd ~/Music'
@@ -90,19 +99,30 @@ alias shutdown="sudo shutdown now"
 alias pacman-unlock="sudo rm /var/lib/pacman/db.lck"
 alias update='flatpak update && paru -Syu '
 alias paru-local='paru -Qs '
+alias paru-info='paru -Si '
 alias paru-search='paru -Ss '
-alias paru-remove='paru -Rs '
+alias paru-remove='paru -Rns '
 alias paru-install='paru --disable-download-timeout -S '
+alias paru-installdeps='paru --asdeps --disable-download-timeout -S '
 alias paru-upgrade='paru --disable-download-timeout -Syu '
 alias paru-localinstall='paru -U '
 alias paru-clear='paru -Scc'
-alias paru-autoremove='sudo paru -Rns $(paru -Qtdq)'
+alias paru-autoremove='paru -Rn $(paru -Qtdq)'
 
 ## Lists the reverse dependencies of the specified package in the system.
 ## Usage: paru-deps <package_name>
 paru-deps()
 {
     paru -Qii "$*" | rg -e '(^Name|^Required By|^Optional For)'
+}
+
+## Prints the git branch of the current directory to stdout or does nothing
+## if the current directory is not in a git repository.
+## Usage: git_branch
+git_branch()
+{
+    local -r branch=$(git branch 2> /dev/null | sed -nr "s/^\* (\S.+)$/\1/p")
+    [[ -n $branch ]] && echo "($branch) "
 }
 
 ## Extracts a compressed file.
@@ -154,6 +174,7 @@ swap ()
 
 ## Replace ls with exa.
 ## Usage: ls <args> <file_path>
+## Example args: -l, -a, -Ta, -lah
 ls()
 {
     local -r exa_args='--color=always --group-directories-first --icons'
@@ -169,11 +190,11 @@ ls()
 # Usage: startup
 startup()
 {
-    discord > /dev/null & disown
-    element-desktop > /dev/null & disown
-    betterbird > /dev/null & disown
-    tutanota-desktop > /dev/null & disown
-    io.github.mimbrero.WhatsAppDesktop > /dev/null & disown
+    discord > /dev/null 2>&1 & disown
+    element-desktop > /dev/null 2>&1 & disown
+    betterbird > /dev/null 2>&1 & disown
+    tutanota-desktop > /dev/null 2>&1 & disown
+    io.github.mimbrero.WhatsAppDesktop > /dev/null 2>&1 & disown
 }
 
 clear
