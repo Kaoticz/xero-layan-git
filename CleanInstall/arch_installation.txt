@@ -100,6 +100,13 @@ hwclock --systohc
 
 # Set the locale
 echo 'LC_ALL=en_US.UTF-8' >> /etc/environment
+# ... You might also want to add
+# # Base XDG
+# XDG_DATA_HOME="${HOME}/.local/share"
+# XDG_CONFIG_HOME="${HOME}/.config"
+# XDG_STATE_HOME="${HOME}/.local/state"
+# XDG_CACHE_HOME="${HOME}/.cache"
+# ...
 echo 'LANG=en_US.UTF-8' >> /etc/locale.conf
 echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen
 locale-gen

@@ -20,7 +20,7 @@ export EDITOR=nano    # Set nano as the default text editor for sudoedit
 # The terminal's prompt
 # The pattern \[ASCII_COLOR\] defines a color
 # For example: \[\033[0;36m\]
-PS1='\[\033[0;36m\][\u@\h \W]\$ \[\033[0;32m\]$(git_branch)\[\033[0m\]'
+PS1='\[\033[0;36m\][\u@\h \W]\$\[\033[0;32m\]$(git_branch)\[\033[0m\]'
 
 # Add local applications to the shell
 if [ -d "$HOME/.bin" ] ;
@@ -40,6 +40,9 @@ alias synthwave="mpv --no-terminal --no-video --force-window https://www.youtube
 alias asot="mpv --no-terminal --no-video --force-window https://www.youtube.com/watch?v=5lMmnfVylEE & disown"
 alias asot-video="mpv --no-terminal --force-window https://www.youtube.com/watch?v=5lMmnfVylEE & disown"
 
+# Youtube
+alias youtube='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio" --merge-output-format mp4 '
+
 # Check disk usage
 alias disk='sudo btrfs filesystem usage /'
 
@@ -49,12 +52,9 @@ alias userlist="cut -d: -f1 /etc/passwd"
 # Get the fastest mirrors for your location
 alias update-mirrors='rate-mirrors --allow-root arch | sudo tee /etc/pacman.d/mirrorlist'
 
-#Bash aliases
+# Bash aliases
 alias reload='cd ~ && source ~/.bashrc'
 alias cls='clear'
-
-# Youtube
-alias youtube='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio" --merge-output-format mp4 '
 
 # Replace cat with bat
 alias cat='bat --paging=never '
@@ -68,7 +68,7 @@ alias refindlinuxconf='sudo -e /boot/refind_linux.conf'
 alias sambaconf='sudo -e /etc/samba/smb.conf'
 alias repolist='sudo -e /etc/pacman.d/mirrorlist'
 
-#cd/ aliases
+# 'cd' aliases
 alias repo='cd ~/Documents/Programming/Repositories'
 alias home='cd ~'
 alias etc='cd /etc'
@@ -82,7 +82,7 @@ alias documents='cd ~/Documents'
 alias global-apps='cd /usr/share/applications'
 alias local-apps='cd ~/.local/share/applications'
 
-#Recent Installed Packages
+# Recent Installed Packages
 alias newest-installed="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 alias oldest-installed="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
 
@@ -95,7 +95,7 @@ alias journal-lasterrors='journalctl -x -p 3 -b 1'
 alias reboot="sudo reboot"
 alias shutdown="sudo shutdown now"
 
-# Package managment
+# Package management
 alias pacman-unlock="sudo rm /var/lib/pacman/db.lck"
 alias update='flatpak update && paru -Syu '
 alias paru-local='paru -Qs '
@@ -109,6 +109,9 @@ alias paru-localinstall='paru -U '
 alias paru-clear='paru -Scc'
 alias paru-autoremove='paru -Rn $(paru -Qtdq)'
 
+# Development
+alias csharp='csharprepl'
+
 ## Lists the reverse dependencies of the specified package in the system.
 ## Usage: paru-deps <package_name>
 paru-deps()
@@ -116,13 +119,20 @@ paru-deps()
     paru -Qii "$*" | rg -e '(^Name|^Required By|^Optional For)'
 }
 
-## Prints the git branch of the current directory to stdout or does nothing
+## Prints the git branch of the current directory to stdout or a whitespace
 ## if the current directory is not in a git repository.
 ## Usage: git_branch
 git_branch()
 {
     local -r branch=$(git branch 2> /dev/null | sed -nr "s/^\* (\S.+)$/\1/p")
-    [[ -n $branch ]] && echo "($branch) "
+    [[ -n $branch ]] && echo " ($branch) " || echo ' '
+}
+
+## Prints learning material about a programming language or a tool to stdout.
+## Usage: cheat <language>
+cheat()
+{
+    [[ -n $1 ]] && curl cheat.sh/"$1"/:learn || curl cheat.sh
 }
 
 ## Extracts a compressed file.
