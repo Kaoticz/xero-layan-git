@@ -111,6 +111,7 @@ alias paru-autoremove='paru -Rn $(paru -Qtdq)'
 
 # Development
 alias csharp='csharprepl'
+alias valgrind='valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose -s '
 
 ## Lists the reverse dependencies of the specified package in the system.
 ## Usage: paru-deps <package_name>

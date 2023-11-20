@@ -105,15 +105,13 @@ echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen
 locale-gen
 
 # Set XDG variables
-nano /etc/profile.d/xdg_vars.sh
+nano /etc/security/pam_env.conf
 # ...
-# #!/usr/bin/env bash
-#
 # # Base XDG
-# XDG_DATA_HOME="${HOME}/.local/share"
-# XDG_CONFIG_HOME="${HOME}/.config"
-# XDG_STATE_HOME="${HOME}/.local/state"
-# XDG_CACHE_HOME="${HOME}/.cache"
+# XDG_CONFIG_HOME DEFAULT=@{HOME}/.config
+# XDG_CACHE_HOME  DEFAULT=@{HOME}/.cache
+# XDG_DATA_HOME   DEFAULT=@{HOME}/.local/share
+# XDG_STATE_HOME  DEFAULT=@{HOME}/.local/state
 # ...
 
 # Set the hostname
