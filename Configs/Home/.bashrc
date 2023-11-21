@@ -14,8 +14,8 @@
 
 # Exported environment variables
 export HISTCONTROL=ignoreboth:erasedups
-export GPG_TTY=$(tty) # Enable commit signing in the shell
-export EDITOR=nano    # Set nano as the default text editor for sudoedit
+export GPG_TTY=$(tty)   # Enable commit signing in the shell
+export EDITOR=nano      # Set nano as the default text editor for sudoedit
 
 # The terminal's prompt
 # The pattern \[ASCII_COLOR\] defines a color

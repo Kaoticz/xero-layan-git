@@ -41,7 +41,7 @@ mount --mkdir /dev/sda1 /mnt/efi
 mount --mkdir -o noatime,commit=120,compress=zstd,discard=async,space_cache=v2,subvol=@home /dev/sda2 /mnt/home
 
 # Install the system
-pacstrap -K /mnt base base-devel linux-zen linux-zen-headers linux-firmware intel-ucode amd-ucode btrfs-progs archlinux-keyring refind efibootmgr gptfdisk bash nano man-db tldr git #nvidia-dkms
+pacstrap -K /mnt base base-devel linux-zen linux-zen-headers linux-firmware intel-ucode amd-ucode btrfs-progs archlinux-keyring gnupg refind efibootmgr gptfdisk bash nano man-db tldr git #nvidia-dkms
 
 refind-install --root /mnt
 nano /mnt/efi/EFI/refind/refind.conf
@@ -75,7 +75,7 @@ loadkeys br-abnt
 echo 'KEYMAP=br-abnt' >> /etc/vconsole.conf
 
 # Fix Systemd's annoyingly long timeout
-nano /etc/systemd/system.conf
+nano /etc/systemd/user.conf
 # ...
 # DefaultTimeoutStopSec=15s
 # ...
@@ -164,6 +164,15 @@ nano /etc/pacman.d/hooks/refind.hook
 # Set the root password
 passwd
 
+# Set gnupg
+nano /etc/pacman.d/gnupg/gpg-agent.conf
+# ...
+# #disable-scdaemon                         # Disables support for smart cards.
+# #default-cache-ttl 600                    # Defines how long a passphrase remains cached in memory.
+# #max-cache-ttl 43200                      # Defines the maximum value default-cache-ttl is allowed to have.
+# pinentry-program /usr/bin/pinentry-gtk-2  # Makes it so gnupg can ask for passwords in a GUI.
+# ...
+
 # Exit the installed system
 exit
 
@@ -191,7 +200,7 @@ zramctl
 git clone https://aur.archlinux.org/paru-bin.git
 cd paru-bin
 makepkg -si
-paru --disable-download-timeout --asdeps -Syu asp bat devtools bash-completion
+paru --disable-download-timeout --asdeps -Syu asp bat devtools bash-completion gtk2
 cd ..
 rm -rf paru-bin
 
