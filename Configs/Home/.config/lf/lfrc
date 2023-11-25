@@ -1,0 +1,7 @@
+map <enter> open
+map <esc> quit
+map <delete> delete
+map <f-2> rename
+map . set hidden!
+set icons
+set drawbox

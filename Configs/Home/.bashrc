@@ -12,23 +12,132 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# Exported environment variables
-export HISTCONTROL=ignoreboth:erasedups
-export GPG_TTY=$(tty)   # Enable commit signing in the shell
-export EDITOR=nano      # Set nano as the default text editor for sudoedit
+## Lists the reverse dependencies of the specified package in the system.
+## Usage: paru-deps <package_name>
+paru-deps()
+{
+    paru -Qii "$*" | rg -e '(^Name|^Required By|^Optional For)'
+}
+
+## Prints the git branch of the current directory to stdout or a whitespace
+## if the current directory is not in a git repository.
+## Usage: git_branch
+git_branch()
+{
+    local -r branch=$(git branch 2> /dev/null | sed -nr "s/^\* (\S.+)$/\1/p")
+    [[ -n $branch ]] && echo " ($branch) " || echo ' '
+}
+
+## Prints learning material about a programming language or a tool to stdout.
+## Usage: cheat <language>
+cheat()
+{
+    [[ -n $1 ]] && curl cheat.sh/"$1"/:learn || curl cheat.sh
+}
+
+## Sources a bash file if it exists.
+## Usage: source_if_exists <path_to_sh_file>
+source_if_exists()
+{
+    if [[ -f $* ]]; then
+        source "$*"
+    fi
+}
+
+## Extracts a compressed file.
+## Usage: extract <file>
+extract ()
+{
+    if [ -f "$1" ] ; then
+      case $1 in
+        *.tar.bz2)   tar xjf "$1"   ;;
+        *.tar.gz)    tar xzf "$1"   ;;
+        *.bz2)       bunzip2 "$1"   ;;
+        *.rar)       unrar x "$1"   ;;
+        *.gz)        gunzip "$1"    ;;
+        *.tar)       tar xf "$1"    ;;
+        *.tbz2)      tar xjf "$1"   ;;
+        *.tgz)       tar xzf "$1"   ;;
+        *.zip)       unzip "$1"     ;;
+        *.Z)         uncompress "$1";;
+        *.7z)        7z x "$1"      ;;
+        *.deb)       ar x "$1"      ;;
+        *.tar.xz)    tar xf "$1"    ;;
+        *.tar.zst)   unzstd "$1"    ;;
+        *)           echo "'$1' cannot be extracted via extract()" ;;
+      esac
+    else
+      echo "'$1' is not a valid file"
+    fi
+}
+
+## Swaps the name of one file with another (also works for directories, drives and pipes).
+## Usage: swap <test1.txt> <test2.txt>
+swap ()
+{
+    test $# -eq 2 || return 2
+
+    test -e "$1" || return 3
+    test -e "$2" || return 3
+
+    local -r lname="$(basename "$1")"
+    local -r rname="$(basename "$2")"
+    local -r owner1="$(stat -c '%U' $1)"
+    local -r owner2="$(stat -c '%U' $2)"
+    local -r priv=$([[ $owner1 == "root" || $owner2 == "root" ]] && echo "sudo" || echo "")
+
+    ( cd "$(dirname "$1")" && $priv mv -T "$lname" ".${rname}" ) && \
+    ( cd "$(dirname "$2")" && $priv mv -T "$rname" "$lname" ) && \
+    ( cd "$(dirname "$1")" && $priv mv -T ".${rname}" "$rname" )
+}
+
+## Replace ls with exa.
+## Usage: ls <args> <file_path>
+## Example args: -l, -a, -Ta, -lah
+ls()
+{
+    local -r exa_args='--color=always --group-directories-first --icons'
+
+    if [[ ${*} =~ -.+$ ]]; then
+        exa $exa_args "$@"
+    else
+        exa $exa_args -la "$@"
+    fi
+}
+
+# Quick initialization of frequently used programs.
+# Usage: startup
+startup()
+{
+    discord > /dev/null 2>&1 & disown
+    element-desktop > /dev/null 2>&1 & disown
+    betterbird > /dev/null 2>&1 & disown
+    tutanota-desktop > /dev/null 2>&1 & disown
+    io.github.mimbrero.WhatsAppDesktop > /dev/null 2>&1 & disown
+}
 
 # The terminal's prompt
 # The pattern \[ASCII_COLOR\] defines a color
 # For example: \[\033[0;36m\]
 PS1='\[\033[0;36m\][\u@\h \W]\$\[\033[0;32m\]$(git_branch)\[\033[0m\]'
 
+# Exported environment variables
+export HISTCONTROL=ignoreboth:erasedups
+export GPG_TTY=$(tty)   # Enable commit signing in the shell
+export EDITOR=nano      # Set nano as the default text editor for sudoedit
+
+# LF icons and behavior
+source_if_exists "${XDG_CONFIG_HOME}/lf/lfcd.sh"
+source_if_exists "${XDG_CONFIG_HOME}/lf/icons.sh"
+alias lf='lfcd'
+
 # Add local applications to the shell
 if [ -d "$HOME/.bin" ] ;
-  then PATH="$HOME/.bin:$PATH"
+    then PATH="$HOME/.bin:$PATH"
 fi
 
 if [ -d "$HOME/.local/bin" ] ;
-  then PATH="$HOME/.local/bin:$PATH"
+    then PATH="$HOME/.local/bin:$PATH"
 fi
 
 # Ignore upper and lowercase during TAB completion
@@ -112,100 +221,5 @@ alias paru-autoremove='paru -Rn $(paru -Qtdq)'
 # Development
 alias csharp='csharprepl'
 alias valgrind='valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose -s '
-
-## Lists the reverse dependencies of the specified package in the system.
-## Usage: paru-deps <package_name>
-paru-deps()
-{
-    paru -Qii "$*" | rg -e '(^Name|^Required By|^Optional For)'
-}
-
-## Prints the git branch of the current directory to stdout or a whitespace
-## if the current directory is not in a git repository.
-## Usage: git_branch
-git_branch()
-{
-    local -r branch=$(git branch 2> /dev/null | sed -nr "s/^\* (\S.+)$/\1/p")
-    [[ -n $branch ]] && echo " ($branch) " || echo ' '
-}
-
-## Prints learning material about a programming language or a tool to stdout.
-## Usage: cheat <language>
-cheat()
-{
-    [[ -n $1 ]] && curl cheat.sh/"$1"/:learn || curl cheat.sh
-}
-
-## Extracts a compressed file.
-## Usage: extract <file>
-extract ()
-{
-  if [ -f "$1" ] ; then
-    case $1 in
-      *.tar.bz2)   tar xjf "$1"   ;;
-      *.tar.gz)    tar xzf "$1"   ;;
-      *.bz2)       bunzip2 "$1"   ;;
-      *.rar)       unrar x "$1"   ;;
-      *.gz)        gunzip "$1"    ;;
-      *.tar)       tar xf "$1"    ;;
-      *.tbz2)      tar xjf "$1"   ;;
-      *.tgz)       tar xzf "$1"   ;;
-      *.zip)       unzip "$1"     ;;
-      *.Z)         uncompress "$1";;
-      *.7z)        7z x "$1"      ;;
-      *.deb)       ar x "$1"      ;;
-      *.tar.xz)    tar xf "$1"    ;;
-      *.tar.zst)   unzstd "$1"    ;;
-      *)           echo "'$1' cannot be extracted via extract()" ;;
-    esac
-  else
-    echo "'$1' is not a valid file"
-  fi
-}
-
-## Swaps the name of one file with another (also works for directories, drives and pipes).
-## Usage: swap <test1.txt> <test2.txt>
-swap ()
-{
-    test $# -eq 2 || return 2
-
-    test -e "$1" || return 3
-    test -e "$2" || return 3
-
-    local -r lname="$(basename "$1")"
-    local -r rname="$(basename "$2")"
-    local -r owner1="$(stat -c '%U' $1)"
-    local -r owner2="$(stat -c '%U' $2)"
-    local -r priv=$([[ $owner1 == "root" || $owner2 == "root" ]] && echo "sudo" || echo "")
-
-    ( cd "$(dirname "$1")" && $priv mv -T "$lname" ".${rname}" ) && \
-    ( cd "$(dirname "$2")" && $priv mv -T "$rname" "$lname" ) && \
-    ( cd "$(dirname "$1")" && $priv mv -T ".${rname}" "$rname" )
-}
-
-## Replace ls with exa.
-## Usage: ls <args> <file_path>
-## Example args: -l, -a, -Ta, -lah
-ls()
-{
-    local -r exa_args='--color=always --group-directories-first --icons'
-
-    if [[ ${*} =~ -.+$ ]]; then
-        exa $exa_args "$@"
-    else
-        exa $exa_args -la "$@"
-    fi
-}
-
-# Quick initialization of frequently used programs.
-# Usage: startup
-startup()
-{
-    discord > /dev/null 2>&1 & disown
-    element-desktop > /dev/null 2>&1 & disown
-    betterbird > /dev/null 2>&1 & disown
-    tutanota-desktop > /dev/null 2>&1 & disown
-    io.github.mimbrero.WhatsAppDesktop > /dev/null 2>&1 & disown
-}
 
 clear
