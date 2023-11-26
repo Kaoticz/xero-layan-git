@@ -232,7 +232,7 @@ reboot
 
 # 3. (Optional) Setup Layan theme for KDE Plasma
 
-paru -Syu ripgrep eza awk expac latte-dock kvantum neofetch nerd-fonts-meta ttf-symbola noto-fonts-cjk noto-fonts-emoji ttf-twemoji
+paru -Syu lf eza awk expac ripgrep latte-dock kvantum neofetch nerd-fonts-meta ttf-symbola noto-fonts-cjk noto-fonts-emoji ttf-twemoji
 
 # Go to Plasma's global themes and install the Layan theme from there.
 # Then move in the configuration files from https://github.com/Kaoticz/xero-layan-git/tree/arch/Configs
