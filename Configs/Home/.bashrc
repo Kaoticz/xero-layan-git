@@ -105,8 +105,8 @@ ls()
     fi
 }
 
-# Quick initialization of frequently used programs.
-# Usage: startup
+## Quick initialization of frequently used programs.
+## Usage: startup
 startup()
 {
     discord > /dev/null 2>&1 & disown
@@ -123,8 +123,8 @@ PS1='\[\033[0;36m\][\u@\h \W]\$\[\033[0;32m\]$(git_branch)\[\033[0m\]'
 
 # Exported environment variables
 export HISTCONTROL=ignoreboth:erasedups
-export GPG_TTY=$(tty)   # Enable commit signing in the shell
-export EDITOR=nano      # Set nano as the default text editor for sudoedit
+#export GPG_TTY=$(tty)   # Enable commit signing in the shell
+#export EDITOR=nano      # Set nano as the default text editor for sudoedit
 
 # LF icons and behavior
 source_if_exists "${XDG_CONFIG_HOME}/lf/lfcd.sh"
@@ -192,8 +192,8 @@ alias global-apps='cd /usr/share/applications'
 alias local-apps='cd ~/.local/share/applications'
 
 # Recent Installed Packages
-alias newest-installed="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
-alias oldest-installed="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
+alias latest-packages="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
+alias oldest-packages="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
 
 # Get kernel logs
 alias journal='journalctl -x -b 0'
@@ -208,7 +208,7 @@ alias shutdown="sudo shutdown now"
 alias pacman-unlock="sudo rm /var/lib/pacman/db.lck"
 alias update='flatpak update && paru -Syu '
 alias paru-local='paru -Qs '
-alias paru-info='paru -Si '
+alias paru-info='paru -Sii '
 alias paru-search='paru -Ss '
 alias paru-remove='paru -Rns '
 alias paru-install='paru --disable-download-timeout -S '
