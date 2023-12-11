@@ -132,12 +132,16 @@ source_if_exists "${XDG_CONFIG_HOME}/lf/icons.sh"
 alias lf='lfcd'
 
 # Add local applications to the shell
-if [ -d "$HOME/.bin" ] ;
-    then PATH="$HOME/.bin:$PATH"
+if [[ -d "$HOME/.bin" ]]; then
+    PATH="$HOME/.bin:$PATH"
 fi
 
-if [ -d "$HOME/.local/bin" ] ;
-    then PATH="$HOME/.local/bin:$PATH"
+if [[ -d "$HOME/.local/bin" ]]; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+if [[ -d "$HOME/.dotnet/tools" ]]; then
+    PATH="$HOME/.dotnet/tools:$PATH"
 fi
 
 # Ignore upper and lowercase during TAB completion
@@ -205,8 +209,8 @@ alias reboot="sudo reboot"
 alias shutdown="sudo shutdown now"
 
 # Package management
+alias update='time flatpak update && time paru --disable-download-timeout -Syu '
 alias pacman-unlock="sudo rm /var/lib/pacman/db.lck"
-alias update='flatpak update && paru -Syu '
 alias paru-local='paru -Qs '
 alias paru-info='paru -Sii '
 alias paru-search='paru -Ss '
@@ -221,5 +225,13 @@ alias paru-autoremove='paru -Rn $(paru -Qtdq)'
 # Development
 alias csharp='csharprepl'
 alias valgrind='valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose -s '
+
+# Sleep drive
+# sleepdrive /dev/sdX
+alias sleepdrive='hdparm -Y '
+
+# Sudo
+alias mount-degraded='sudo mount -o ro,degraded '
+alias mount-storage='sudo mount --mkdir -o rw,noatime,commit=120,compress=zstd:5,discard=async,space_cache=v2 /dev/sda1 /run/media/$USER/storage_ssdsata'
 
 clear
