@@ -116,6 +116,9 @@ startup()
     io.github.mimbrero.WhatsAppDesktop > /dev/null 2>&1 & disown
 }
 
+# ble.sh attach START
+[[ $- == *i* ]] && source /usr/share/blesh/ble.sh --noattach
+
 # The terminal's prompt
 # The pattern \[ASCII_COLOR\] defines a color
 # For example: \[\033[0;36m\]
@@ -149,9 +152,9 @@ bind "set completion-ignore-case on"
 
 # Music
 alias lofi="mpv --no-terminal --no-video --force-window https://www.youtube.com/watch?v=jfKfPfyJRdk & disown"
-alias synthwave="mpv --no-terminal --no-video --force-window https://www.youtube.com/watch?v=4xDzrJKXOOY & disown"
-alias asot="mpv --no-terminal --no-video --force-window https://www.youtube.com/watch?v=5lMmnfVylEE & disown"
-alias asot-video="mpv --no-terminal --force-window https://www.youtube.com/watch?v=5lMmnfVylEE & disown"
+alias synthwave="mpv --no-terminal --no-video --force-window https://www.youtube.com/watch?v=UedTcufyrHc & disown"
+alias asot="mpv --no-terminal --no-video --force-window https://www.youtube.com/watch?v=NGsjwNsXE0w & disown"
+alias asot-video="mpv --no-terminal --force-window https://www.youtube.com/watch?v=NGsjwNsXE0w & disown"
 
 # Youtube
 alias youtube='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio" --merge-output-format mp4 '
@@ -210,14 +213,14 @@ alias shutdown="sudo shutdown now"
 
 # Package management
 alias update='time flatpak update && time paru --disable-download-timeout -Syu '
+alias update-aur='paru --disable-download-timeout -Sua '
 alias pacman-unlock="sudo rm /var/lib/pacman/db.lck"
 alias paru-local='paru -Qs '
 alias paru-info='paru -Sii '
 alias paru-search='paru -Ss '
-alias paru-remove='paru -Rns '
+alias paru-remove='paru -Rn '
 alias paru-install='paru --disable-download-timeout -S '
 alias paru-installdeps='paru --asdeps --disable-download-timeout -S '
-alias paru-upgrade='paru --disable-download-timeout -Syu '
 alias paru-localinstall='paru -U '
 alias paru-clear='paru -Scc'
 alias paru-autoremove='paru -Rn $(paru -Qtdq)'
@@ -235,3 +238,6 @@ alias mount-degraded='sudo mount -o ro,degraded '
 alias mount-storage='sudo mount --mkdir -o rw,noatime,commit=120,compress=zstd:5,discard=async,space_cache=v2 /dev/sda1 /run/media/$USER/storage_ssdsata'
 
 clear
+
+# ble.sh attach FINISH
+[[ ${BLE_VERSION-} ]] && ble-attach
