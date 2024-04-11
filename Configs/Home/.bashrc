@@ -105,6 +105,13 @@ ls()
     fi
 }
 
+## Watch network packets on Flatpak Wireshark.
+## Usage: packets
+packets()
+{
+    pkexec tcpdump -i enp0s31f6 -U -w - | flatpak run --branch=stable --arch=x86_64 --device=all --filesystem=host --file-forwarding=host --share=network org.wireshark.Wireshark -k -i - > /dev/null 2>&1 | xargs -0 -n1 sh -c 'wireshark "$@" < /dev/null' sh > /dev/null 2>&1 & disown
+}
+
 ## Quick initialization of frequently used programs.
 ## Usage: startup
 startup()
@@ -178,6 +185,7 @@ alias cat='bat --paging=never '
 # Configuration files
 alias bashrc='kate ~/.bashrc'
 alias pacmanconf='sudo -e /etc/pacman.conf'
+alias mkinitcpioconf='sudo -e /etc/mkinitcpio.conf'
 alias makepkgconf='sudo -e /etc/makepkg.conf'
 alias refindconf='sudo -e /efi/EFI/refind/refind.conf'
 alias refindlinuxconf='sudo -e /boot/refind_linux.conf'
@@ -226,8 +234,14 @@ alias paru-clear='paru -Scc'
 alias paru-autoremove='paru -Rn $(paru -Qtdq)'
 
 # Development
-alias csharp='csharprepl'
 alias valgrind='valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose -s '
+alias loc='cloc . --vcs=git'
+
+# C#
+alias csharp='csharprepl'
+alias ef-add='dotnet ef migrations add '
+alias ef-remove='dotnet ef migrations remove '
+alias ef-update='dotnet ef database update'
 
 # Sleep drive
 # sleepdrive /dev/sdX
