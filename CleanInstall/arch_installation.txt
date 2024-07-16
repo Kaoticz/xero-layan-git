@@ -232,6 +232,19 @@ rate-mirrors --allow-root arch | sudo tee /etc/pacman.d/mirrorlist
 # Run login manager on startup
 sudo systemctl enable sddm.service
 
+# 3. Enable suspension with Nvidia GPUs on Wayland.
+
+echo 'options nvidia NVreg_PreserveVideoMemoryAllocations=1' | sudo tee -a /etc/modprobe.d/nvidia.conf
+
+## The video buffer is saved to /tmp by default.
+## To save the video buffer to disk instead, add the following option:
+#echo 'options nvidia NVreg_TemporaryFilePath=/var/tmp' | sudo tee -a /etc/modprobe.d/nvidia.conf
+
+sudo systemctl enable nvidia-suspend.service
+sudo systemctl enable nvidia-hibernate.service
+sudo systemctl enable nvidia-resume.service
+sudo mkinitcpio -P
+
 reboot
 
 # 3. (Optional) Setup Layan theme for KDE Plasma
