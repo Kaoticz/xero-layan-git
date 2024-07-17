@@ -92,6 +92,9 @@ swap ()
 }
 
 ## Replace ls with exa.
+## Usage: ls
+## Usage: ls <args>
+## Usage: ls <file_path>
 ## Usage: ls <args> <file_path>
 ## Example args: -l, -a, -Ta, -lah
 ls()
@@ -112,11 +115,59 @@ packets()
     pkexec tcpdump -i enp0s31f6 -U -w - | flatpak run --branch=stable --arch=x86_64 --device=all --filesystem=host --file-forwarding=host --share=network org.wireshark.Wireshark -k -i - > /dev/null 2>&1 | xargs -0 -n1 sh -c 'wireshark "$@" < /dev/null' sh > /dev/null 2>&1 & disown
 }
 
+## Creates or resets a network bridge and connects it with a host network.
+## Usage: bridgenetwork
+## Usage: bridgenetwork <bridge_name>
+## Usage: bridgenetwork <bridge_name> <network_name>
+bridgenetwork()
+{
+    local -r blue_color='\033[0;34m'  # ANSI blue color.
+    local -r reset_color='\e[0m'      # ANSI default color.
+    local -r bridge=$([[ -z $1 ]] && echo 'virbr0' || echo "$1")
+    local -r host_network=$([[ -z $2 ]] && echo 'enp0s31f6' || echo "$2")
+    local -r host_ip_regex="${host_network}[ a-zA-Z]+(([0-9]{1,3}\.?\/?){5})"
+    local -r host_address=$([[ $(ip -br addr show) =~ $host_ip_regex ]] && echo "${BASH_REMATCH[1]}" || echo '192.168.15.10/24')
+
+    # If host network does not exist, exit.
+    if ! [[ $(bridge link) =~ $host_network ]]; then
+        echo -e "The provided host network ${blue_color}${host_network}${reset_color} does not exist." >&2
+        return 1
+    fi
+
+    # If bridge already exists, remove it.
+    if [[ $(bridge link) =~ $bridge ]]; then
+        sudo ip link set "$bridge" nomaster
+        sudo ip link set "$bridge" down
+        sudo ip link delete "$bridge" type bridge
+    fi
+
+    # Create the bridge.
+    sudo ip link add name "$bridge" type bridge
+    sudo ip link set "$host_network" master "$bridge"
+    sudo ip link set dev "$bridge" up
+    sudo ip addr add dev "$bridge" "$host_address"
+
+    echo -e "Successfully connected bridge ${blue_color}${bridge}${reset_color} to the network ${blue_color}${host_network}${reset_color} at address ${blue_color}${host_address}${reset_color}."
+}
+
+## Spins down an HDD device.
+## Usage: sleepdrive /dev/sdX
+sleepdrive()
+{
+    if ! [[ -f $1 ]]; then
+        echo "Drive $1 not found." >&2
+        return 1
+    fi
+
+    udisksctl power-off -b "$1" > /dev/null 2>&1
+}
+
 ## Quick initialization of frequently used programs.
 ## Usage: startup
 startup()
 {
-    discord > /dev/null 2>&1 & disown
+    udisksctl power-off -b /dev/sdb > /dev/null 2>&1
+    discord --start-minimized > /dev/null 2>&1 & disown
     element-desktop > /dev/null 2>&1 & disown
     betterbird > /dev/null 2>&1 & disown
     tutanota-desktop > /dev/null 2>&1 & disown
@@ -235,7 +286,10 @@ alias paru-autoremove='paru -Rn $(paru -Qtdq)'
 
 # Development
 alias valgrind='valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose -s '
-alias loc='cloc . --vcs=git'
+alias cloc='cloc --vcs=git .'
+
+# Networking
+alias myip='curl -s http://tnx.nl/ip | tr -d "<>"'
 
 # C#
 alias csharp='csharprepl'
@@ -243,9 +297,8 @@ alias ef-add='dotnet ef migrations add '
 alias ef-remove='dotnet ef migrations remove '
 alias ef-update='dotnet ef database update'
 
-# Sleep drive
-# sleepdrive /dev/sdX
-alias sleepdrive='hdparm -Y '
+# Sleep backup drive
+alias sleephdd='sleepdrive /dev/sdb'
 
 # Sudo
 alias mount-degraded='sudo mount -o ro,degraded '
