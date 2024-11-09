@@ -204,7 +204,7 @@ systemctl enable vboxservice
 exit
 
 # Generate the filesystem table file
-genfstab -U /mnt > /mnt/etc/fstab # Remove "subvolid" from all entries, if there are any
+genfstab -U /mnt > /mnt/etc/fstab   # Remove "subvolid" from all entries, if there are any
 
 # Unmount the disk
 umount -R /mnt
@@ -240,15 +240,18 @@ snapper -c home_config create-config /home
 
 # Stop here if you do not want to use KDE Plasma as your desktop environment.
 
-# 2.3 Install KDE Plasma and applications (184 total)
-## 8 18 19 23 24 28 34 44 46 52-54 56 57 63 64 73 90-92 96 118-119 123 131 141 143 144 150 162 165 176 179 182 183
-paru --disable-download-timeout -Syu xorg sddm plasma plasma-wayland-session kde-applications packagekit-qt5 flatpak fwupd pipewire wireplumber pipewire-pulse helvum easyeffects rate-mirrors-bin
+# 2.3 Install KDE Plasma
+paru --disable-download-timeout -Syu xorg sddm plasma pipewire wireplumber pipewire-pulse pipewire-alsa  rate-mirrors-bin
 
 # Update mirror list
 rate-mirrors --allow-root arch | sudo tee /etc/pacman.d/mirrorlist
 
-# Run login manager on startup
-sudo systemctl enable sddm.service
+# Setup login manager to run on startup
+sudo systemctl enable sddm
+
+# (Optional) Install desktop applications
+paru --disable-download-timeout -Syu packagekit-qt5 flatpak fwupd helvum easyeffects ark dolphin dolphin-plugins ffmpegthumbs filelight gwenview kalarm kate kcachegrind kcharselect kcolorchooser kcron kdegraphics-thumbnailers kdialog kio-extras kio-gdrive kio-zeroconf kjournald kolourpaint konsole ktorrent kwallet kwalletmanager okular spectacle yakuake
+
 
 # 3. Enable suspension with Nvidia GPUs on Wayland.
 
