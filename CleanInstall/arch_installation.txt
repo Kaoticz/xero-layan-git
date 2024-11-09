@@ -14,11 +14,12 @@ lsblk
 
 # Check this https://wiki.archlinux.org/title/Advanced_Format
 
-# Partition the disk
+# Partition the disk - do these in order!
 # Run "g" to make the disk GPT
-# First partition of size +512M
-# Second partition takes everything else
-# Change the type of the first partition to "EF"
+# Now create a partition of size +512M with "n"
+# Create a second partition takes everything else with "n" again
+# Change the type of the first partition to "EF" or "1" (EFI System) with "t"
+# Save and exit with "w"
 fdisk /dev/sda
 
 # Format the disk
@@ -63,7 +64,7 @@ nano /mnt/boot/refind_linux.conf # https://wiki.archlinux.org/title/REFInd#refin
 # Warning: it will decrease the performance of your CPU
 # mds=full,nosmt
 # ...
-# "Boot using default options"     "root=UUID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX rw add_efi_memmap zswap.enabled=0 rootflags=subvol=@ initrd=@\boot\intel-ucode.img initrd=@\boot\amd-ucode.img initrd=@\boot\initramfs-%v.img"
+# "Boot using default options"      "root=UUID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX rw add_efi_memmap zswap.enabled=0 rootflags=subvol=@ initrd=@\boot\intel-ucode.img initrd=@\boot\amd-ucode.img initrd=@\boot\initramfs-%v.img"
 # "Boot using fallback initramfs"  "root=UUID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX rw add_efi_memmap zswap.enabled=0 rootflags=subvol=@ initrd=@\boot\intel-ucode.img initrd=@\boot\amd-ucode.img initrd=@\boot\initramfs-%v-fallback.img"
 # "Boot to terminal"               "root=UUID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX rw add_efi_memmap zswap.enabled=0 rootflags=subvol=@ initrd=@\boot\intel-ucode.img initrd=@\boot\amd-ucode.img initrd=@\boot\initramfs-%v.img systemd.unit=multi-user.target"
 # ...
@@ -86,6 +87,14 @@ nano /etc/systemd/user.conf
 
 # Change the default pacman settings
 nano /etc/pacman.conf
+# ...
+# Color
+# VerbosePkgLists
+# ParallelDownloads = 7
+# ILoveCandy
+# [multilib]
+# Include = /etc/pacman.d/mirrorlist
+# ...
 
 # Install the network manager
 pacman --noconfirm --disable-download-timeout -Syu networkmanager
@@ -139,17 +148,23 @@ nano /etc/sysctl.d/99-vm-zram-parameters.conf
 # vm.page-cluster = 0
 # ...
 
+# Set the root password
+passwd
+
 # Add an admin user
 useradd -mg wheel kotz
 passwd kotz
 
 # Define the permissions for sudo
-echo '' >> /etc/sudoers
-echo '#Give admin to all wheel users' >> /etc/sudoers
-echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
-echo '' >> /etc/sudoers
-echo "#Don't ask for root password on the same console session" >> /etc/sudoers
-echo 'Defaults !tty_tickets' >> /etc/sudoers
+
+nano /etc/sudoers
+# ...
+# # Give admin to all wheel users
+# %wheel ALL=(ALL) ALL
+#
+# # Don't ask for root password in the same console session
+# Defaults !tty_tickets
+# ...
 
 mkdir /etc/pacman.d/hooks
 nano /etc/pacman.d/hooks/refind.hook
@@ -165,9 +180,6 @@ nano /etc/pacman.d/hooks/refind.hook
 # Exec=/usr/bin/refind-install
 # ...
 
-# Set the root password
-passwd
-
 # Set gnupg
 nano /etc/pacman.d/gnupg/gpg-agent.conf
 # ...
@@ -177,16 +189,22 @@ nano /etc/pacman.d/gnupg/gpg-agent.conf
 # pinentry-program /usr/bin/pinentry-gtk-2  # Makes it so gnupg can ask for passwords in a GUI.
 # ...
 
+# Do this ONLY if you're installing in a VM. Pick whichever most appropriate.
+# Otherwise, skip this section!
+
+## Spice
+pacman -Syu spice-vdagent
+systemctl enable spice-vdagentd
+
+## VirtualBox
+pacman -Syu virtualbox-guest-utils
+systemctl enable vboxservice
+
 # Exit the installed system
 exit
 
 # Generate the filesystem table file
-genfstab -U /mnt > /mnt/etc/fstab
-# ... Remove "subvolid" from all entries
-# ... And make sure it has the following
-# #/dev/zram0
-# /dev/zram0    none    swap    defaults,pri=100    0 0
-# ...
+genfstab -U /mnt > /mnt/etc/fstab # Remove "subvolid" from all entries, if there are any
 
 # Unmount the disk
 umount -R /mnt
@@ -223,7 +241,7 @@ snapper -c home_config create-config /home
 # Stop here if you do not want to use KDE Plasma as your desktop environment.
 
 # 2.3 Install KDE Plasma and applications (184 total)
-## 8 18-19 23-24 28 34 44 46 52-54 56-57 63-64 73 90-92 96 118-119 123 131 141 143-144 150 162 165 176 179 182-183
+## 8 18 19 23 24 28 34 44 46 52-54 56 57 63 64 73 90-92 96 118-119 123 131 141 143 144 150 162 165 176 179 182 183
 paru --disable-download-timeout -Syu xorg sddm plasma plasma-wayland-session kde-applications packagekit-qt5 flatpak fwupd pipewire wireplumber pipewire-pulse helvum easyeffects rate-mirrors-bin
 
 # Update mirror list
@@ -247,7 +265,7 @@ sudo mkinitcpio -P
 
 reboot
 
-# 3. (Optional) Setup Layan theme for KDE Plasma
+# 3. (Optional) Setup Layan theme for KDE Plasma | IGNORE THIS, DOESN'T WORK ANYMORE
 
 paru -Syu lf eza awk expac ripgrep latte-dock kvantum neofetch nerd-fonts-meta ttf-symbola noto-fonts-cjk noto-fonts-emoji ttf-twemoji
 

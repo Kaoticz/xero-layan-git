@@ -129,7 +129,7 @@ bridgenetwork()
     local -r host_address=$([[ $(ip -br addr show) =~ $host_ip_regex ]] && echo "${BASH_REMATCH[1]}" || echo '192.168.15.10/24')
 
     # If host network does not exist, exit.
-    if ! [[ $(bridge link) =~ $host_network ]]; then
+    if ! [[ $(ip -br addr show) =~ $host_network ]]; then
         echo -e "The provided host network ${blue_color}${host_network}${reset_color} does not exist." >&2
         return 1
     fi
@@ -154,7 +154,7 @@ bridgenetwork()
 ## Usage: sleepdrive /dev/sdX
 sleepdrive()
 {
-    if ! [[ -f $1 ]]; then
+    if ! [[ $(file "$1") =~ block ]]; then
         echo "Drive $1 not found." >&2
         return 1
     fi
@@ -167,11 +167,11 @@ sleepdrive()
 startup()
 {
     udisksctl power-off -b /dev/sdb > /dev/null 2>&1
-    discord --start-minimized > /dev/null 2>&1 & disown
     element-desktop > /dev/null 2>&1 & disown
-    betterbird > /dev/null 2>&1 & disown
     tutanota-desktop > /dev/null 2>&1 & disown
-    io.github.mimbrero.WhatsAppDesktop > /dev/null 2>&1 & disown
+    vesktop > /dev/null 2>&1 & disown
+    betterbird > /dev/null 2>&1 & disown
+    com.rtosta.zapzap > /dev/null 2>&1 & disown
 }
 
 # ble.sh attach START
