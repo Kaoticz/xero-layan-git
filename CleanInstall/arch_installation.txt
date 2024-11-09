@@ -65,8 +65,8 @@ nano /mnt/boot/refind_linux.conf # https://wiki.archlinux.org/title/REFInd#refin
 # mds=full,nosmt
 # ...
 # "Boot using default options"      "root=UUID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX rw add_efi_memmap zswap.enabled=0 rootflags=subvol=@ initrd=@\boot\intel-ucode.img initrd=@\boot\amd-ucode.img initrd=@\boot\initramfs-%v.img"
-# "Boot using fallback initramfs"  "root=UUID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX rw add_efi_memmap zswap.enabled=0 rootflags=subvol=@ initrd=@\boot\intel-ucode.img initrd=@\boot\amd-ucode.img initrd=@\boot\initramfs-%v-fallback.img"
-# "Boot to terminal"               "root=UUID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX rw add_efi_memmap zswap.enabled=0 rootflags=subvol=@ initrd=@\boot\intel-ucode.img initrd=@\boot\amd-ucode.img initrd=@\boot\initramfs-%v.img systemd.unit=multi-user.target"
+# "Boot using fallback initramfs"   "root=UUID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX rw add_efi_memmap zswap.enabled=0 rootflags=subvol=@ initrd=@\boot\intel-ucode.img initrd=@\boot\amd-ucode.img initrd=@\boot\initramfs-%v-fallback.img"
+# "Boot to terminal"                "root=UUID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX rw add_efi_memmap zswap.enabled=0 rootflags=subvol=@ initrd=@\boot\intel-ucode.img initrd=@\boot\amd-ucode.img initrd=@\boot\initramfs-%v.img systemd.unit=multi-user.target"
 # ...
 
 # Use this if rEFInd is not able to detect the distro
@@ -92,6 +92,7 @@ nano /etc/pacman.conf
 # VerbosePkgLists
 # ParallelDownloads = 7
 # ILoveCandy
+#
 # [multilib]
 # Include = /etc/pacman.d/mirrorlist
 # ...
