@@ -195,7 +195,6 @@ nano /etc/pacman.d/gnupg/gpg-agent.conf
 
 ## Spice
 pacman -Syu spice-vdagent
-systemctl enable spice-vdagentd
 
 ## VirtualBox
 pacman -Syu virtualbox-guest-utils
