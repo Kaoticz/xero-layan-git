@@ -42,7 +42,7 @@ mount --mkdir /dev/sda1 /mnt/efi
 mount --mkdir -o noatime,commit=120,compress=zstd,discard=async,space_cache=v2,subvol=@home /dev/sda2 /mnt/home
 
 # Install the system
-pacstrap -K /mnt base base-devel linux-zen linux-zen-headers linux-firmware intel-ucode amd-ucode btrfs-progs archlinux-keyring gnupg refind efibootmgr gptfdisk bash nano man-db tldr git #nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings
+pacstrap -K /mnt base base-devel linux-zen linux-zen-headers linux-firmware intel-ucode amd-ucode btrfs-progs archlinux-keyring refind efibootmgr gptfdisk bash nano man-db tldr git #nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings
 
 refind-install --root /mnt
 nano /mnt/efi/EFI/refind/refind.conf
@@ -182,6 +182,7 @@ nano /etc/pacman.d/hooks/refind.hook
 # ...
 
 # Set gnupg
+pacman -Syu gnupg
 nano /etc/pacman.d/gnupg/gpg-agent.conf
 # ...
 # #disable-scdaemon                         # Disables support for smart cards.
