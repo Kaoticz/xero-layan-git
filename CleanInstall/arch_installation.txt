@@ -42,7 +42,9 @@ mount --mkdir /dev/sda1 /mnt/efi
 mount --mkdir -o noatime,commit=120,compress=zstd,discard=async,space_cache=v2,subvol=@home /dev/sda2 /mnt/home
 
 # Install the system
-pacstrap -K /mnt base base-devel linux-zen linux-zen-headers linux-firmware intel-ucode amd-ucode btrfs-progs archlinux-keyring refind efibootmgr gptfdisk bash nano man-db tldr git #nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings
+## If you have a NVIDIA GPU, include: nvidia-dkms nvidia-utils nvidia-settings
+## If you have an AMD GPU, include: mesa vulkan-radeon libva-mesa-driver mesa-vdpau
+pacstrap -K /mnt base base-devel linux-zen linux-zen-headers linux-firmware intel-ucode amd-ucode btrfs-progs archlinux-keyring refind efibootmgr gptfdisk bash nano man-db tldr git
 
 refind-install --root /mnt
 nano /mnt/efi/EFI/refind/refind.conf
@@ -239,10 +241,12 @@ paru --disable-download-timeout -Syu snapper btrfs-assistant refind-btrfs
 snapper -c root_config create-config /
 snapper -c home_config create-config /home
 
-# Stop here if you do not want to use KDE Plasma as your desktop environment.
+
+### Stop here if you do not want to use KDE Plasma as your desktop environment! ###
+
 
 # 2.3 Install KDE Plasma
-paru --disable-download-timeout -Syu xorg sddm plasma pipewire wireplumber pipewire-pulse pipewire-alsa  rate-mirrors-bin
+paru --disable-download-timeout -Syu xorg sddm plasma pipewire wireplumber pipewire-pulse pipewire-alsa rate-mirrors-bin
 
 # Update mirror list
 rate-mirrors --allow-root arch | sudo tee /etc/pacman.d/mirrorlist
@@ -252,6 +256,13 @@ sudo systemctl enable sddm
 
 # (Optional) Install desktop applications
 paru --disable-download-timeout -Syu packagekit-qt5 flatpak fwupd helvum easyeffects ark dolphin dolphin-plugins ffmpegthumbs filelight gwenview kalarm kate kcachegrind kcharselect kcolorchooser kcron kdegraphics-thumbnailers kdialog kio-extras kio-gdrive kio-zeroconf kjournald kolourpaint konsole ktorrent kwallet kwalletmanager okular spectacle yakuake
+
+# (Optional) Install GPU 32-bit drivers:
+## NVIDIA
+paru -Syu lib32-nvidia-utils
+
+## AMD
+paru -Syu lib32-mesa lib32-vulkan-radeon lib32-libva-mesa-driver lib32-mesa-vdpau
 
 
 # 3. Enable suspension with Nvidia GPUs on Wayland.
